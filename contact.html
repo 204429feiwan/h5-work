@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>舌尖上的老字号——联系我们</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="page-contact">
+
+  <header class="site-header">
+    <div class="container text-center">
+      <h1 class="site-title">舌尖上的老字号</h1>
+      <p class="site-subtitle">中华传统美食文化专题</p>
+    </div>
+  </header>
+
+  <nav class="navbar navbar-expand-lg site-nav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">老字号美食</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+        aria-controls="mainNavbar" aria-expanded="false" aria-label="切换导航">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">首页</a></li>
+          <li class="nav-item"><a class="nav-link" href="north.html">北方风味</a></li>
+          <li class="nav-item"><a class="nav-link" href="south.html">南方风味</a></li>
+          <li class="nav-item"><a class="nav-link" href="jiangxi.html">赣味传承</a></li>
+          <li class="nav-item"><a class="nav-link" href="heritage.html">非遗工艺</a></li>
+          <li class="nav-item"><a class="nav-link active" href="contact.html">互动体验</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="page-jump-bar" aria-label="页面快捷导航">
+    <div class="container page-jump-inner">
+      <a href="#page-content" class="page-jump-primary">进入正文 ↓</a>
+      <div class="page-jump-links">
+        <a href="#contact-author" class="page-jump-link" data-section="contact-author">作者信息</a>
+        <a href="#contact-form" class="page-jump-link" data-section="contact-form">留言反馈</a>
+        <a href="#contact-essay" class="page-jump-link" data-section="contact-essay">制作体会</a>
+        <a href="#contact-thanks" class="page-jump-link" data-section="contact-thanks">致谢</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-main" id="page-content">
+
+    <!-- Banner -->
+    <section class="contact-hero">
+      <div class="contact-hero-pattern" aria-hidden="true"></div>
+      <div class="container text-center contact-hero-inner">
+        <h2 class="contact-hero-title reveal">联系我们</h2>
+        <p class="contact-hero-desc reveal">感受老字号文化魅力，传承中华饮食精神</p>
+      </div>
+    </section>
+
+    <!-- 作者信息 -->
+    <section class="contact-section py-5" id="contact-author">
+      <div class="container">
+        <div class="section-heading text-center mb-4 reveal">
+          <span class="section-tag">作品信息</span>
+          <h2 class="section-title">作者信息</h2>
+          <div class="title-divider"></div>
+        </div>
+        <div class="row g-4 justify-content-center">
+          <div class="col-lg-8">
+            <div class="card contact-info-card reveal">
+              <div class="card-body">
+                <ul class="contact-info-list list-unstyled mb-0">
+                  <li>
+                    <span class="contact-info-label">项目名称</span>
+                    <span class="contact-info-value">《舌尖上的老字号——中华传统美食文化专题》</span>
+                  </li>
+                  <li>
+                    <span class="contact-info-label">作者</span>
+                    <span class="contact-info-value">孙诚俊</span>
+                  </li>
+                  <li>
+                    <span class="contact-info-label">课程</span>
+                    <span class="contact-info-value">HTML5网页设计</span>
+                  </li>
+                  <li>
+                    <span class="contact-info-label">班级</span>
+                    <span class="contact-info-value">424软工3班</span>
+                  </li>
+                  <li>
+                    <span class="contact-info-label">指导教师</span>
+                    <span class="contact-info-value">王娜老师</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 留言反馈 -->
+    <section class="contact-section contact-form-section py-5" id="contact-form">
+      <div class="container">
+        <div class="section-heading text-center mb-4 reveal">
+          <span class="section-tag">互动交流</span>
+          <h2 class="section-title">留言反馈</h2>
+          <div class="title-divider"></div>
+          <p class="section-desc">欢迎留下您的意见与建议，共同传播中华老字号饮食文化</p>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="card contact-form-card reveal">
+              <div class="card-body">
+                <form id="contactForm" class="contact-form" novalidate>
+                  <div class="mb-3">
+                    <label for="contactName" class="form-label">姓名 <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control contact-input" id="contactName" name="name"
+                      placeholder="请输入您的姓名" required autocomplete="name">
+                    <div class="invalid-feedback" id="nameError">姓名不能为空</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="contactEmail" class="form-label">邮箱 <span class="text-danger">*</span></label>
+                    <input type="email" class="form-control contact-input" id="contactEmail" name="email"
+                      placeholder="example@email.com" required autocomplete="email">
+                    <div class="invalid-feedback" id="emailError">请输入正确的邮箱格式</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="contactPhone" class="form-label">联系电话 <span class="text-danger">*</span></label>
+                    <input type="tel" class="form-control contact-input" id="contactPhone" name="phone"
+                      placeholder="请输入11位手机号码" required autocomplete="tel">
+                    <div class="invalid-feedback" id="phoneError">请输入正确的手机号格式</div>
+                  </div>
+                  <div class="mb-4">
+                    <label for="contactMessage" class="form-label">留言内容 <span class="text-danger">*</span></label>
+                    <textarea class="form-control contact-input" id="contactMessage" name="message" rows="5"
+                      placeholder="请输入留言内容（不少于10个字）" required></textarea>
+                    <div class="invalid-feedback" id="messageError">留言内容不能少于10个字</div>
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn contact-submit-btn">提交留言</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 项目制作体会 -->
+    <section class="contact-section py-5" id="contact-essay">
+      <div class="container">
+        <div class="section-heading text-center mb-4 reveal">
+          <span class="section-tag">课程总结</span>
+          <h2 class="section-title">项目制作体会</h2>
+          <div class="title-divider"></div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-10">
+            <article class="contact-essay-card reveal">
+              <p>本次课程设计我选取「中华老字号美食文化」作为专题方向，一方面源于自身对传统饮食的浓厚兴趣，另一方面也希望通过网页形式呈现老字号背后深厚的历史与文化内涵。确定选题后，我主要通过官方网站、正规出版物及权威文化资料平台进行素材收集，并注意图片与文字来源的规范性，力求内容真实可靠。</p>
+              <p>在网页开发过程中，我先搭建统一的目录结构与页面框架，再分别完成首页、北方风味、南方风味、匠心传承与互动体验等子页面。开发中综合运用了 HTML5 语义化标签、Bootstrap 5 响应式布局、CSS3 动画与 JavaScript 交互，实现了轮播图、表单验证、滚动渐显、视频嵌入等功能。通过实践，我更加理解了结构与样式分离、移动端适配以及用户体验设计的重要性，也体会到 Bootstrap 栅格系统对提高开发效率的帮助。</p>
+              <p>与此同时，我对中华老字号的认识也更加深刻：它们不仅是商业品牌，更是非遗技艺、地方文化与民族记忆的载体。一代代匠人用双手守护味道与标准，让传统在现代社会继续发光。本次课程设计不仅锻炼了我的网页制作能力，更让我在制作过程中重新认识了「舌尖上的中国」，也更加坚定了传承与传播优秀传统文化的信念。</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 致谢 -->
+    <section class="contact-thanks-section" id="contact-thanks">
+      <div class="container text-center reveal">
+        <h3 class="contact-thanks-title">致谢</h3>
+        <p class="contact-thanks-text">感谢王娜老师在 HTML5 网页设计课程中的悉心指导，让我在实践中学以致用、不断进步。感谢中华老字号所承载的文化给予我的灵感与动力。愿以本网站为桥梁，将传统饮食文化的温度传递给更多读者，为老字号文化的传承与传播贡献一份微薄之力。</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container text-center">
+      <p class="footer-brand">《舌尖上的老字号》</p>
+      <p class="footer-tagline">传承中华饮食文化</p>
+      <p class="footer-author">作者：孙诚俊</p>
+      <p class="footer-year">2026</p>
+    </div>
+  </footer>
+
+  <button type="button" id="backToTop" class="back-to-top" aria-label="返回顶部" title="返回顶部">
+    <span aria-hidden="true">↑</span>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
