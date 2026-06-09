@@ -12,6 +12,10 @@
   --color-text: #3d2b1f;
   --color-text-light: #6b5344;
   --shadow-soft: 0 4px 20px rgba(139, 0, 0, 0.08);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 14px 40px rgba(0, 0, 0, 0.12);
+  --radius-card: 16px;
+  --transition-base: 0.35s ease;
 }
 
 /* --- 基础 --- */
@@ -29,15 +33,33 @@ html {
   }
 }
 
-body {  font-family: "Microsoft YaHei", "PingFang SC", "Noto Serif SC", serif, sans-serif;
+body {
+  position: relative;
+  min-height: 100vh;
+  font-family: "Microsoft YaHei", "PingFang SC", "Noto Serif SC", serif, sans-serif;
   line-height: 1.7;
   color: var(--color-text);
   background-color: var(--color-bg);
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--color-bg);
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='320' height='320' viewBox='0 0 320 320' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23c9a962' stroke-width='0.8' opacity='0.7'%3E%3Cpath d='M40 160c30-50 80-70 120-50s70 70 50 110-80 60-120 40S10 210 40 160z'/%3E%3Cpath d='M200 80c25 35 20 75-10 95s-65 10-85-20 5-75 35-90 45-20 60 15z'/%3E%3Cpath d='M240 220c20 30 15 60-10 75s-50 5-65-25 10-65 30-75 35-15 45 25z'/%3E%3C/g%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 16h16v16H0zm16 16h16v16H16zm16-16h16v16H32zm16 16h16v16H48z' fill='%23d9ccb0' fill-opacity='0.45'/%3E%3C/svg%3E");
+  background-size: 420px 420px, 72px 72px;
+  background-position: center 10%, 0 0;
+  opacity: 0.07;
+}
+
 /* --- Header --- */
 .site-header {
-  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 50%, #a01830 100%);
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 55%, var(--color-primary-dark) 100%);
   padding: 2rem 0 1.5rem;
   border-bottom: 3px solid var(--color-gold);
   position: relative;
@@ -73,35 +95,156 @@ body {  font-family: "Microsoft YaHei", "PingFang SC", "Noto Serif SC", serif, s
 .site-nav {
   background: linear-gradient(to right, var(--color-primary-dark), var(--color-primary));
   border-bottom: 2px solid var(--color-gold);
-  padding: 0.2rem 0;
+  padding: 0.35rem 0;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.12);
 }
 
 .site-nav .navbar-brand {
   color: var(--color-gold-light) !important;
   font-weight: 700;
   letter-spacing: 0.1em;
+  font-size: 1.05rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.site-nav .navbar-collapse {
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+
+.site-nav .navbar-nav-main {
+  gap: 0.15rem;
 }
 
 .site-nav .nav-link {
-  color: rgba(255, 248, 220, 0.85) !important;
+  color: rgba(255, 248, 220, 0.88) !important;
   font-weight: 500;
-  padding: 0.6rem 1rem !important;
-  transition: color 0.3s, background 0.3s;
-  border-radius: 4px;
+  padding: 0.55rem 0.85rem !important;
+  transition: color 0.25s, background 0.25s, transform 0.2s;
+  border-radius: 6px;
+  font-size: 0.92rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
-.site-nav .nav-link:hover,
+.site-nav .nav-link:hover {
+  color: var(--color-gold-light) !important;
+  background: rgba(255, 255, 255, 0.1);
+}
+
 .site-nav .nav-link.active {
-  color: var(--color-gold) !important;
-  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-gold-light) !important;
+  background: rgba(255, 255, 255, 0.16);
+  font-weight: 700;
+  box-shadow: inset 0 -3px 0 var(--color-gold);
 }
 
 .site-nav .navbar-toggler {
   border-color: var(--color-gold);
+  padding: 0.35rem 0.55rem;
 }
 
 .site-nav .navbar-toggler-icon {
   filter: invert(1) sepia(1) saturate(5) hue-rotate(5deg);
+}
+
+/* 导航栏搜索框（展示用） */
+.nav-search {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: clamp(160px, 18vw, 220px);
+  padding: 0.4rem 1rem 0.4rem 0.85rem;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 999px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.nav-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.nav-bgm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.42rem 0.85rem;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--color-gold-light);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  white-space: nowrap;
+}
+
+.nav-bgm-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: var(--color-gold);
+  color: #fff;
+}
+
+.nav-bgm-btn.is-playing {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--color-primary-dark);
+  border-color: rgba(212, 175, 55, 0.65);
+}
+
+.nav-bgm-icon {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.site-bgm {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nav-search:hover {
+  border-color: var(--color-gold);
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.22);
+}
+
+.nav-search-icon {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  color: var(--color-primary);
+  opacity: 0.85;
+}
+
+.nav-search-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.875rem;
+  color: #444;
+  padding: 0;
+  cursor: default;
+}
+
+.nav-search-input::placeholder {
+  color: #9a8f82;
+  letter-spacing: 0.02em;
+}
+
+.nav-search-input::-webkit-search-cancel-button {
+  display: none;
 }
 
 /* --- 页首快捷跳转 --- */
@@ -331,7 +474,9 @@ a.keyword-link:hover {
 
 /* --- 简介模块 --- */
 .intro-section {
-  background: var(--color-bg);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .intro-card {
@@ -402,7 +547,9 @@ a.keyword-link:hover {
 
 /* --- 美食地图 --- */
 .map-section {
-  background: linear-gradient(180deg, var(--color-bg-warm) 0%, var(--color-bg) 100%);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .china-map-wrapper {
@@ -512,6 +659,24 @@ a.keyword-link:hover {
 /* --- Main --- */
 .page-main {
   min-height: 60vh;
+  animation: pageEnter 0.7s ease-out both;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-main {
+    animation: none;
+  }
 }
 
 /* --- 子页横幅 --- */
@@ -1909,5 +2074,827 @@ a.keyword-link:hover {
 
   .page-jump-links::-webkit-scrollbar {
     display: none;
+  }
+}
+
+/* ========================================
+   分页面主题 · 统一组件 · 独立 Banner
+   ======================================== */
+
+/* --- 页面主题色 --- */
+.page-home {
+  --color-primary: #c41e3a;
+  --color-primary-dark: #8b0000;
+  --color-gold: #d4af37;
+  --color-gold-light: #f5e6c8;
+  --color-bg: #faf5eb;
+  --color-bg-warm: #f5e6d0;
+  --shadow-soft: 0 4px 24px rgba(196, 30, 58, 0.1);
+}
+
+.page-north {
+  --color-primary: #7a1f1f;
+  --color-primary-dark: #4a0e0e;
+  --color-gold: #b8860b;
+  --color-gold-light: #f0dcc0;
+  --color-bg: #f7f0e8;
+  --color-bg-warm: #ebe0cf;
+  --shadow-soft: 0 4px 24px rgba(74, 14, 14, 0.12);
+}
+
+.page-south {
+  --color-primary: #2d6a62;
+  --color-primary-dark: #1a4540;
+  --color-gold: #8fbc8f;
+  --color-gold-light: #e8f5e9;
+  --color-bg: #f8faf7;
+  --color-bg-warm: #eef5f0;
+  --shadow-soft: 0 4px 24px rgba(45, 106, 98, 0.1);
+}
+
+.page-jiangxi {
+  --color-primary: #d4652a;
+  --color-primary-dark: #a84315;
+  --color-gold: #f0c674;
+  --color-gold-light: #fff3dc;
+  --color-bg: #fffbf3;
+  --color-bg-warm: #fef3dc;
+  --shadow-soft: 0 4px 24px rgba(212, 101, 42, 0.12);
+}
+
+.page-heritage {
+  --color-primary: #1a3a5c;
+  --color-primary-dark: #0f2440;
+  --color-gold: #d4af37;
+  --color-gold-light: #f5e6c8;
+  --color-bg: #f4f6f9;
+  --color-bg-warm: #e8edf3;
+  --shadow-soft: 0 4px 24px rgba(26, 58, 92, 0.12);
+}
+
+.page-contact {
+  --color-primary: #5c6370;
+  --color-primary-dark: #3d424a;
+  --color-gold: #d4af37;
+  --color-gold-light: #f5f0e0;
+  --color-bg: #f5f5f5;
+  --color-bg-warm: #ececec;
+  --shadow-soft: 0 4px 24px rgba(60, 66, 74, 0.1);
+}
+
+.page-home,
+.page-north,
+.page-south,
+.page-jiangxi,
+.page-heritage,
+.page-contact {
+  background-color: var(--color-bg);
+}
+
+/* --- 统一按钮 --- */
+.btn-theme {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.55rem 1.6rem;
+  border-radius: 999px;
+  border: 2px solid var(--color-gold);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: var(--color-gold-light) !important;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.btn-theme:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  color: #fff !important;
+}
+
+.contact-submit-btn {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  border-color: var(--color-gold);
+}
+
+/* --- 统一卡片阴影 --- */
+.intro-card,
+.feature-box,
+.city-item,
+.north-brand-panel,
+.north-info-card,
+.north-culture-card,
+.jiangxi-food-item,
+.jiangxi-paper-card,
+.jiangxi-folk-card,
+.heritage-craft-card,
+.heritage-paper-card,
+.contact-info-card,
+.contact-form-card,
+.contact-essay-card,
+.home-quick-card {
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.intro-card:hover,
+.feature-box:hover,
+.city-item:hover,
+.north-brand-panel:hover,
+.north-culture-card:hover,
+.jiangxi-food-item:hover,
+.heritage-craft-card:hover,
+.home-quick-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.home-quick-card:hover {
+  transform: translateY(-6px);
+}
+
+/* --- 统一图片悬停 --- */
+.north-img-wrap,
+.jiangxi-img-wrap {
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.north-img-wrap:hover,
+.jiangxi-img-wrap:hover {
+  transform: scale(1.03) translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* --- 独立 Banner 基础 --- */
+.page-banner {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 4px solid var(--color-gold);
+  min-height: clamp(220px, 38vw, 360px);
+  display: flex;
+  align-items: center;
+}
+
+.page-banner-media {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.02);
+  transition: transform 8s ease;
+}
+
+.page-banner:hover .page-banner-media {
+  transform: scale(1.08);
+}
+
+.page-banner-mask {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.35) 55%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+.page-banner-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: clamp(2rem, 5vw, 3.5rem) 0;
+}
+
+.page-banner-label {
+  display: inline-block;
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
+  color: var(--color-gold);
+  margin-bottom: 0.6rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 4px;
+}
+
+.page-banner-title {
+  color: #fff;
+  font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+  line-height: 1.35;
+}
+
+.page-banner-title em {
+  font-style: normal;
+  color: var(--color-gold-light);
+}
+
+.page-banner-desc {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(0.92rem, 2vw, 1.05rem);
+  max-width: 560px;
+  line-height: 1.85;
+  margin: 0;
+}
+
+.page-banner-deco {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.12;
+  font-size: clamp(6rem, 18vw, 12rem);
+  font-weight: 700;
+  color: var(--color-gold);
+  line-height: 1;
+}
+
+/* 北方：左对齐 + 印章装饰 */
+.page-banner--north .page-banner-mask {
+  background: linear-gradient(90deg, rgba(74, 14, 14, 0.88) 0%, rgba(74, 14, 14, 0.45) 60%, transparent 100%);
+}
+
+.page-banner--north .page-banner-body {
+  max-width: 640px;
+  text-align: left;
+}
+
+.page-banner--north .page-banner-deco {
+  right: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+  content: "京";
+}
+
+.page-banner--north::after {
+  content: "京";
+  position: absolute;
+  right: 6%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(5rem, 14vw, 9rem);
+  font-weight: 700;
+  color: var(--color-gold);
+  opacity: 0.15;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 南方：居中 + 波浪底 */
+.page-banner--south {
+  text-align: center;
+  justify-content: center;
+}
+
+.page-banner--south .page-banner-mask {
+  background: linear-gradient(180deg, rgba(26, 69, 64, 0.75) 0%, rgba(45, 106, 98, 0.85) 100%);
+}
+
+.page-banner--south .page-banner-body {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.page-banner--south .page-banner-desc {
+  margin: 0 auto;
+}
+
+.page-banner--south::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 40'%3E%3Cpath d='M0 40V20Q300 0 600 20T1200 20V40Z' fill='%23f8faf7'/%3E%3C/svg%3E") bottom center / cover no-repeat;
+  z-index: 3;
+}
+
+.page-banner--south .page-banner-title {
+  writing-mode: horizontal-tb;
+}
+
+.page-banner--south .page-banner-ornament {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.page-banner--south .page-banner-ornament span {
+  width: 32px;
+  height: 3px;
+  background: var(--color-gold);
+  border-radius: 2px;
+}
+
+/* 江西：右对齐 + 暖色 */
+.page-banner--jiangxi .page-banner-mask {
+  background: linear-gradient(270deg, rgba(168, 67, 21, 0.88) 0%, rgba(212, 101, 42, 0.5) 55%, rgba(0, 0, 0, 0.25) 100%);
+}
+
+.page-banner--jiangxi .page-banner-body {
+  margin-left: auto;
+  max-width: 520px;
+  text-align: right;
+}
+
+.page-banner--jiangxi .page-banner-desc {
+  margin-left: auto;
+}
+
+.page-banner--jiangxi .page-banner-label {
+  float: right;
+}
+
+/* 首页轮播增强 */
+.page-home .home-banner-zone .hero-carousel {
+  position: relative;
+}
+
+.page-home .hero-carousel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(139, 0, 0, 0.35) 0%, transparent 45%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.page-home .carousel-caption {
+  z-index: 2;
+  background: rgba(139, 0, 0, 0.55);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  bottom: 2rem;
+}
+
+.page-home .carousel-caption h2 {
+  color: var(--color-gold-light);
+  letter-spacing: 0.15em;
+}
+
+/* 首页快捷入口 */
+.home-quick-section {
+  background: linear-gradient(180deg, #fff 0%, var(--color-bg) 100%);
+  padding: clamp(2rem, 5vw, 3rem) 0;
+}
+
+.home-quick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.home-quick-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.25rem 0.75rem;
+  background: #fff;
+  border-radius: var(--radius-card);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.home-quick-icon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: var(--color-gold-light);
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 0.65rem;
+}
+
+.home-quick-card strong {
+  color: var(--color-primary-dark);
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+
+.home-quick-card small {
+  color: var(--color-text-light);
+  font-size: 0.78rem;
+}
+
+.home-quick-card--north .home-quick-icon { background: linear-gradient(135deg, #7a1f1f, #4a0e0e); }
+.home-quick-card--south .home-quick-icon { background: linear-gradient(135deg, #2d6a62, #1a4540); }
+.home-quick-card--jiangxi .home-quick-icon { background: linear-gradient(135deg, #d4652a, #a84315); }
+.home-quick-card--heritage .home-quick-icon { background: linear-gradient(135deg, #1a3a5c, #0f2440); }
+.home-quick-card--contact .home-quick-icon { background: linear-gradient(135deg, #5c6370, #3d424a); }
+.home-quick-card--map .home-quick-icon { background: linear-gradient(135deg, #c41e3a, #8b0000); }
+
+/* 首页轮播 + 左右快捷入口 */
+.home-banner-zone {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 4px solid var(--color-gold);
+}
+
+.home-banner-row {
+  min-height: clamp(280px, 38vw, 480px);
+}
+
+.home-banner-zone .hero-carousel {
+  border-bottom: none;
+  height: 100%;
+}
+
+.home-banner-zone .hero-carousel::after {
+  border-radius: 0 0 12px 12px;
+}
+
+.home-banner-zone .carousel-item,
+.home-banner-zone .carousel-img {
+  min-height: clamp(280px, 38vw, 480px);
+  height: clamp(280px, 38vw, 480px);
+}
+
+.home-quick-side {
+  justify-content: center;
+}
+
+.home-quick-card--side {
+  flex: 1;
+  padding: 1rem 0.65rem;
+  min-height: 0;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.home-quick-card--side:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(139, 0, 0, 0.12);
+  border-color: var(--color-gold);
+}
+
+.home-quick-card--side .home-quick-icon {
+  width: 44px;
+  height: 44px;
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.home-quick-card--side strong {
+  font-size: 0.88rem;
+}
+
+.home-quick-card--side small {
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.home-quick-grid--mobile {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.65rem;
+}
+
+.home-quick-card--compact {
+  padding: 0.75rem 0.35rem;
+}
+
+.home-quick-card--compact .home-quick-icon {
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.home-quick-card--compact strong {
+  font-size: 0.78rem;
+}
+
+/* 首页「什么是中华老字号」模块 */
+.home-heritage-block {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(212, 175, 55, 0.25);
+  border-bottom: 1px solid rgba(196, 30, 58, 0.08);
+}
+
+.page-home .home-heritage-block .heritage-paper-card {
+  background: #fffef8;
+  border-color: rgba(196, 30, 58, 0.25);
+  box-shadow: 2px 4px 16px rgba(139, 0, 0, 0.08);
+}
+
+.page-home .home-heritage-block .heritage-paper-card::before {
+  border-color: rgba(196, 30, 58, 0.15);
+}
+
+.page-home .home-heritage-block .heritage-stat-item--home {
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+  border-color: var(--color-gold);
+  box-shadow: 0 4px 14px rgba(139, 0, 0, 0.2);
+}
+
+.page-home .home-heritage-block .heritage-stat-num,
+.page-home .home-heritage-block .heritage-stat-unit {
+  color: #fff;
+}
+
+.page-home .home-heritage-block .heritage-stat-label {
+  color: rgba(255, 248, 220, 0.92);
+}
+
+.page-home .home-heritage-block .heritage-timeline-line {
+  background: linear-gradient(to bottom, var(--color-gold), var(--color-primary));
+}
+
+.page-home .home-heritage-block .heritage-timeline-dot {
+  background: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(196, 30, 58, 0.15);
+}
+
+.page-home .home-heritage-block .heritage-timeline-content time {
+  color: var(--color-primary-dark);
+  background: rgba(212, 175, 55, 0.22);
+}
+
+.page-home .home-heritage-block .heritage-timeline-content h4 {
+  color: var(--color-primary-dark);
+}
+
+.page-heritage .heritage-stat-num,
+.page-heritage .heritage-stat-unit {
+  color: #fff;
+}
+
+.page-heritage .heritage-stat-label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* 非遗 Banner 升级 */
+.page-heritage .heritage-hero {
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 50%, #2a5080 100%);
+  min-height: clamp(240px, 40vw, 380px);
+  border-bottom: 4px solid var(--color-gold);
+}
+
+.page-heritage .heritage-hero-pattern {
+  background-image:
+    url("images/craft/craft1.jpg"),
+    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0zm40 40h40v40H40z' fill='%23d4af37' fill-opacity='0.04'/%3E%3C/svg%3E");
+  background-size: cover, auto;
+  background-position: center, center;
+  opacity: 0.25;
+}
+
+.page-heritage .heritage-hero-title {
+  color: #fff;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.45);
+}
+
+.page-heritage .heritage-hero-tag {
+  color: var(--color-gold-light);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+}
+
+.page-heritage .heritage-hero-desc {
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
+}
+
+.page-heritage .heritage-hero-inner::before,
+.page-heritage .heritage-hero-inner::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--color-gold);
+  margin: 0.75rem auto;
+}
+
+/* 联系页 Banner 升级 */
+.page-contact .contact-hero {
+  background: linear-gradient(135deg, #ececec 0%, #f8f8f8 50%, #e8e8e8 100%);
+  border-bottom: 4px solid var(--color-gold);
+  min-height: clamp(200px, 32vw, 280px);
+}
+
+.page-contact .contact-hero-title {
+  color: var(--color-primary-dark);
+}
+
+.page-contact .contact-hero-desc {
+  color: var(--color-text-light);
+}
+
+.page-contact .contact-hero-pattern {
+  background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23d4af37' stroke-opacity='0.15' stroke-width='1'/%3E%3C/svg%3E");
+  opacity: 0.6;
+}
+
+.page-contact .contact-hero-inner {
+  border: 2px solid rgba(212, 175, 55, 0.45);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 640px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* 跳转栏随主题 */
+.page-north .page-jump-primary,
+.page-south .page-jump-primary,
+.page-jiangxi .page-jump-primary,
+.page-heritage .page-jump-primary,
+.page-contact .page-jump-primary,
+.page-home .page-jump-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+}
+
+.page-north .page-jump-link.is-active,
+.page-south .page-jump-link.is-active,
+.page-jiangxi .page-jump-link.is-active,
+.page-heritage .page-jump-link.is-active,
+.page-contact .page-jump-link.is-active,
+.page-home .page-jump-link.is-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+body.is-page-leaving .page-main {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+@media (max-width: 767.98px) {
+  .page-banner--jiangxi .page-banner-body {
+    text-align: left;
+    margin-left: 0;
+  }
+
+  .page-banner--north::after {
+    display: none;
+  }
+
+  .home-quick-grid,
+  .home-quick-grid--mobile {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .home-banner-zone .carousel-item,
+  .home-banner-zone .carousel-img {
+    min-height: clamp(220px, 55vw, 320px);
+    height: clamp(220px, 55vw, 320px);
+  }
+
+  .site-nav .navbar-nav-main {
+    padding: 0.5rem 0 0.25rem;
+    width: 100%;
+  }
+
+  .site-nav .nav-link {
+    padding: 0.65rem 0.75rem !important;
+  }
+
+  .nav-tools {
+    width: 100%;
+    justify-content: flex-end;
+    padding: 0.35rem 0 0.75rem;
+  }
+
+  .nav-bgm-btn {
+    font-size: 0.78rem;
+    padding: 0.38rem 0.75rem;
+  }
+}
+
+/* ========================================
+   沉浸式氛围 · 启动动画 · 内容层次
+   ======================================== */
+
+.site-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center, #3d1515 0%, #1a0808 55%, #0f0505 100%);
+  transition: opacity 0.65s ease, visibility 0.65s ease;
+}
+
+.site-splash.is-fading {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.site-splash-inner {
+  text-align: center;
+  animation: splashContentIn 1.2s ease-out both;
+}
+
+.site-splash-seal {
+  width: clamp(120px, 22vw, 168px);
+  height: clamp(120px, 22vw, 168px);
+  margin: 0 auto 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  border: 4px solid rgba(196, 30, 58, 0.85);
+  border-radius: 8px;
+  background: rgba(139, 0, 0, 0.15);
+  box-shadow:
+    inset 0 0 0 2px rgba(212, 175, 55, 0.45),
+    0 8px 32px rgba(0, 0, 0, 0.35);
+  transform: rotate(-2deg);
+  animation: sealReveal 1.4s ease-out both;
+}
+
+.site-splash-seal-char {
+  font-family: "Noto Serif SC", "SimSun", serif;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  color: #c41e3a;
+  letter-spacing: 0.2em;
+  text-shadow: 0 1px 0 rgba(212, 175, 55, 0.4);
+  line-height: 1.1;
+}
+
+.site-splash-title {
+  margin: 0;
+  font-family: "Noto Serif SC", "SimSun", serif;
+  font-size: clamp(1.35rem, 3.5vw, 2rem);
+  color: rgba(245, 230, 200, 0.95);
+  letter-spacing: 0.28em;
+  font-weight: 600;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+body.is-splash-active {
+  overflow: hidden;
+}
+
+@keyframes sealReveal {
+  from {
+    opacity: 0;
+    transform: rotate(-2deg) scale(0.72);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(-2deg) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes splashContentIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.content-glass {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.heritage-section:not(.heritage-hero),
+.contact-section,
+.jiangxi-section,
+.north-brand-section,
+.north-culture-section,
+.heritage-summary,
+.contact-thanks-section {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.intro-card,
+.feature-box,
+.heritage-paper-card,
+.north-brand-panel,
+.north-info-card,
+.jiangxi-food-item,
+.heritage-craft-card,
+.contact-form-card,
+.contact-info-card {
+  background: rgba(255, 255, 255, 0.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-splash-inner,
+  .site-splash-seal {
+    animation: none;
   }
 }

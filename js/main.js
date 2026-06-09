@@ -133,10 +133,43 @@ function initSectionSpy() {
   });
 }
 
+function initNavHighlight() {
+  var path = window.location.pathname.split('/').pop() || 'index.html';
+  if (path === '' || path.indexOf('.html') === -1) {
+    path = 'index.html';
+  }
+  document.querySelectorAll('.site-nav .nav-link').forEach(function (link) {
+    var href = link.getAttribute('href');
+    if (!href || href.charAt(0) === '#') return;
+    var linkPage = href.split('/').pop().split('?')[0];
+    if (linkPage === path) {
+      link.classList.add('active');
+      link.setAttribute('aria-current', 'page');
+    } else {
+      link.classList.remove('active');
+      link.removeAttribute('aria-current');
+    }
+  });
+}
+
+function initPageLinkTransition() {
+  document.querySelectorAll('a[href]').forEach(function (link) {
+    var href = link.getAttribute('href');
+    if (!href || href.charAt(0) === '#' || href.indexOf('http') === 0 || href.indexOf('mailto:') === 0) return;
+    if (href.indexOf('.html') === -1 && href !== 'index.html') return;
+    link.addEventListener('click', function () {
+      saveBgmState();
+      document.body.classList.add('is-page-leaving');
+    });
+  });
+}
+
 function initNavigation() {
+  initNavHighlight();
   initPageJumpBar();
   initAnchorNavigation();
   initSectionSpy();
+  initPageLinkTransition();
 }
 
 function initCarousel() {
@@ -367,7 +400,161 @@ function initHeritageVideo() {
   }
 }
 
+var BGM_VOLUME = 0.3;
+var SK_BGM_TIME = 'siteBgmTime';
+var SK_BGM_PAUSED = 'siteBgmUserPaused';
+var siteBgmAudio = null;
+
+function saveBgmState() {
+  if (!siteBgmAudio) return;
+  try {
+    sessionStorage.setItem(SK_BGM_TIME, String(siteBgmAudio.currentTime));
+  } catch (err) {
+    /* sessionStorage 不可用时忽略 */
+  }
+}
+
+function initSiteBgm() {
+  var audio = document.getElementById('siteBgm');
+  var btn = document.getElementById('navBgmBtn');
+  if (!audio) return;
+
+  siteBgmAudio = audio;
+  audio.volume = BGM_VOLUME;
+  audio.loop = true;
+
+  var userPaused = sessionStorage.getItem(SK_BGM_PAUSED) === 'true';
+  var savedTime = parseFloat(sessionStorage.getItem(SK_BGM_TIME) || '0');
+  var interactionBound = false;
+
+  function updateBtn() {
+    if (!btn) return;
+    var playing = !audio.paused;
+    var icon = btn.querySelector('.nav-bgm-icon');
+    var text = btn.querySelector('.nav-bgm-text');
+    btn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+    btn.classList.toggle('is-playing', playing);
+    if (playing) {
+      if (icon) icon.textContent = '♫';
+      if (text) text.textContent = '播放中';
+    } else if (userPaused) {
+      if (icon) icon.textContent = '🔇';
+      if (text) text.textContent = '已暂停';
+    } else {
+      if (icon) icon.textContent = '♫';
+      if (text) text.textContent = '音乐';
+    }
+  }
+
+  function restoreTime() {
+    if (savedTime <= 0 || isNaN(savedTime) || !isFinite(savedTime)) return;
+    try {
+      var max = audio.duration && isFinite(audio.duration) ? audio.duration : savedTime;
+      audio.currentTime = Math.min(savedTime, max);
+    } catch (err) {
+      /* 元数据未就绪时忽略 */
+    }
+  }
+
+  function unbindFirstInteraction(onInteract) {
+    document.removeEventListener('click', onInteract, true);
+    document.removeEventListener('touchstart', onInteract, true);
+  }
+
+  function bindFirstInteraction() {
+    if (interactionBound || userPaused) return;
+    interactionBound = true;
+    function onInteract() {
+      if (userPaused) return;
+      audio.play().then(function () {
+        updateBtn();
+        unbindFirstInteraction(onInteract);
+      }).catch(function () {});
+    }
+    document.addEventListener('click', onInteract, true);
+    document.addEventListener('touchstart', onInteract, { capture: true, passive: true });
+  }
+
+  function tryPlay() {
+    if (userPaused) {
+      restoreTime();
+      updateBtn();
+      return;
+    }
+    restoreTime();
+    var promise = audio.play();
+    if (promise && typeof promise.then === 'function') {
+      promise.then(function () {
+        updateBtn();
+      }).catch(function () {
+        updateBtn();
+        bindFirstInteraction();
+      });
+    }
+  }
+
+  audio.addEventListener('loadedmetadata', restoreTime);
+  audio.addEventListener('play', updateBtn);
+  audio.addEventListener('pause', updateBtn);
+  audio.addEventListener('timeupdate', function () {
+    if (!audio.paused && audio.currentTime > 0) {
+      saveBgmState();
+    }
+  });
+
+  window.addEventListener('pagehide', saveBgmState);
+  window.addEventListener('beforeunload', saveBgmState);
+
+  if (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (audio.paused) {
+        userPaused = false;
+        sessionStorage.setItem(SK_BGM_PAUSED, 'false');
+        audio.play().then(updateBtn).catch(function () {});
+      } else {
+        userPaused = true;
+        sessionStorage.setItem(SK_BGM_PAUSED, 'true');
+        audio.pause();
+        updateBtn();
+      }
+    });
+  }
+
+  tryPlay();
+}
+
+function initSiteSplash() {
+  var splash = document.getElementById('siteSplash');
+  if (!splash) return;
+
+  if (sessionStorage.getItem('siteSplashShown') === 'true') {
+    splash.parentNode.removeChild(splash);
+    return;
+  }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    splash.parentNode.removeChild(splash);
+    sessionStorage.setItem('siteSplashShown', 'true');
+    return;
+  }
+
+  document.body.classList.add('is-splash-active');
+  sessionStorage.setItem('siteSplashShown', 'true');
+
+  window.setTimeout(function () {
+    splash.classList.add('is-fading');
+    window.setTimeout(function () {
+      if (splash.parentNode) splash.parentNode.removeChild(splash);
+      document.body.classList.remove('is-splash-active');
+    }, 650);
+  }, 1500);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
+  initSiteSplash();
+  initSiteBgm();
   initNavigation();
   initCarousel();
   initFormValidation();

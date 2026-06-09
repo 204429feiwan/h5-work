@@ -24,7 +24,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="mainNavbar">
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav navbar-nav-main mx-lg-auto">
           <li class="nav-item"><a class="nav-link" href="index.html">首页</a></li>
           <li class="nav-item"><a class="nav-link" href="north.html">北方风味</a></li>
           <li class="nav-item"><a class="nav-link" href="south.html">南方风味</a></li>
@@ -32,6 +32,19 @@
           <li class="nav-item"><a class="nav-link active" href="heritage.html">非遗工艺</a></li>
           <li class="nav-item"><a class="nav-link" href="contact.html">互动体验</a></li>
         </ul>
+        <div class="nav-tools ms-lg-2">
+          <form class="nav-search d-none d-lg-flex" role="search" aria-label="搜索展示（无实际功能）" onsubmit="return false;">
+            <svg class="nav-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="search" class="nav-search-input" placeholder="搜索老字号美食..." aria-label="搜索老字号美食" readonly tabindex="-1">
+          </form>
+          <button type="button" class="nav-bgm-btn" id="navBgmBtn" aria-label="背景音乐控制" aria-pressed="false">
+            <span class="nav-bgm-icon" aria-hidden="true">♫</span>
+            <span class="nav-bgm-text">音乐</span>
+          </button>
+        </div>
       </div>
     </div>
   </nav>
@@ -41,7 +54,6 @@
       <a href="#page-content" class="page-jump-primary">进入正文 ↓</a>
       <div class="page-jump-links">
         <a href="#page-content" class="page-jump-link" data-section="page-content">影像记录</a>
-        <a href="#heritage-intro" class="page-jump-link" data-section="heritage-intro">老字号</a>
         <a href="#heritage-craft" class="page-jump-link" data-section="heritage-craft">非遗技艺</a>
         <a href="#craft-roast-duck" class="page-jump-link" data-section="craft-roast-duck">挂炉烤鸭</a>
         <a href="#craft-dimsum" class="page-jump-link" data-section="craft-dimsum">广式点心</a>
@@ -80,76 +92,6 @@
           <div class="heritage-video-empty" id="heritageVideoEmpty">
             <span>视频待补充</span>
             <small>请将 food-video.mp4 放入 video/ 目录</small>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 模块一：什么是中华老字号 -->
-    <section class="heritage-section heritage-intro-section py-5" id="heritage-intro">
-      <div class="container">
-        <div class="section-heading text-center mb-4 reveal">
-          <span class="section-tag">文化溯源</span>
-          <h2 class="section-title">什么是中华老字号</h2>
-          <div class="title-divider"></div>
-        </div>
-
-        <div class="row g-4 align-items-center">
-          <div class="col-lg-5">
-            <div class="heritage-paper-card reveal">
-              <p>「中华老字号」是指拥有世代传承的产品、技艺或服务，具有鲜明中华民族传统文化背景和深厚文化底蕴，取得社会广泛认同，形成良好信誉的品牌。商务部认定标准强调历史传承、文化价值与社会影响力。老字号不仅是商业符号，更是活态的文化遗产，连接着传统技艺、地方记忆与国民情感，在当代仍持续影响着中国人的饮食方式与文化认同。</p>
-            </div>
-            <div class="heritage-stats row g-3 mt-2 reveal">
-              <div class="col-6">
-                <div class="heritage-stat-item">
-                  <span class="heritage-stat-num" data-count="400">0</span><span class="heritage-stat-unit">+</span>
-                  <span class="heritage-stat-label">认定老字号</span>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="heritage-stat-item">
-                  <span class="heritage-stat-num" data-count="300">0</span><span class="heritage-stat-unit">+</span>
-                  <span class="heritage-stat-label">年最长历史</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-7">
-            <div class="heritage-timeline reveal" id="heritageTimeline">
-              <div class="heritage-timeline-line" aria-hidden="true"></div>
-              <div class="heritage-timeline-item">
-                <span class="heritage-timeline-dot"></span>
-                <div class="heritage-timeline-content">
-                  <time>历史渊源</time>
-                  <h4>世代传承</h4>
-                  <p>多数老字号创于明清，以家族或师徒方式延续配方与技艺，形成独特品牌基因。</p>
-                </div>
-              </div>
-              <div class="heritage-timeline-item">
-                <span class="heritage-timeline-dot"></span>
-                <div class="heritage-timeline-content">
-                  <time>2006 年</time>
-                  <h4>国家认定</h4>
-                  <p>商务部启动「中华老字号」认定工作，建立规范标准，推动品牌保护与传承。</p>
-                </div>
-              </div>
-              <div class="heritage-timeline-item">
-                <span class="heritage-timeline-dot"></span>
-                <div class="heritage-timeline-content">
-                  <time>非遗保护</time>
-                  <h4>技艺入遗</h4>
-                  <p>多项老字号核心技艺列入国家级非物质文化遗产名录，获得制度性保护。</p>
-                </div>
-              </div>
-              <div class="heritage-timeline-item">
-                <span class="heritage-timeline-dot"></span>
-                <div class="heritage-timeline-content">
-                  <time>当代</time>
-                  <h4>活化创新</h4>
-                  <p>在守正基础上拥抱数字化与国潮设计，让百年品牌融入现代生活。</p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -343,6 +285,10 @@
   <button type="button" id="backToTop" class="back-to-top" aria-label="返回顶部" title="返回顶部">
     <span aria-hidden="true">↑</span>
   </button>
+
+  <audio id="siteBgm" class="site-bgm" loop preload="auto" aria-hidden="true">
+    <source src="audio/bgm.m4a" type="audio/mp4">
+  </audio>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/main.js"></script>

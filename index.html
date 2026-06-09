@@ -7,7 +7,18 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
 </head>
-<body>
+<body class="page-home">
+
+  <div class="site-splash" id="siteSplash" aria-hidden="true">
+    <div class="site-splash-inner">
+      <div class="site-splash-seal" aria-hidden="true">
+        <span class="site-splash-seal-char">老</span>
+        <span class="site-splash-seal-char">字</span>
+        <span class="site-splash-seal-char">号</span>
+      </div>
+      <p class="site-splash-title">舌尖上的老字号</p>
+    </div>
+  </div>
 
   <header class="site-header">
     <div class="container text-center">
@@ -24,7 +35,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="mainNavbar">
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav navbar-nav-main mx-lg-auto">
           <li class="nav-item">
             <a class="nav-link active" href="index.html">首页</a>
           </li>
@@ -44,70 +55,144 @@
             <a class="nav-link" href="contact.html">互动体验</a>
           </li>
         </ul>
-      </div>
-    </div>
-  </nav>
-
-  <nav class="page-jump-bar" aria-label="页面快捷导航">
-    <div class="container page-jump-inner">
-      <a href="#page-content" class="page-jump-primary">进入正文 ↓</a>
-      <div class="page-jump-links">
-        <a href="#home-banner" class="page-jump-link" data-section="home-banner">轮播图</a>
-        <a href="#home-intro" class="page-jump-link" data-section="home-intro">品牌简介</a>
-        <a href="#home-map" class="page-jump-link" data-section="home-map">美食地图</a>
+        <div class="nav-tools ms-lg-2">
+          <form class="nav-search d-none d-lg-flex" role="search" aria-label="搜索展示（无实际功能）" onsubmit="return false;">
+            <svg class="nav-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="search" class="nav-search-input" placeholder="搜索老字号美食..." aria-label="搜索老字号美食" readonly tabindex="-1">
+          </form>
+          <button type="button" class="nav-bgm-btn" id="navBgmBtn" aria-label="背景音乐控制" aria-pressed="false">
+            <span class="nav-bgm-icon" aria-hidden="true">♫</span>
+            <span class="nav-bgm-text">音乐</span>
+          </button>
+        </div>
       </div>
     </div>
   </nav>
 
   <main class="page-main" id="page-content">
 
-    <!-- 顶部轮播图 -->
-    <section class="hero-carousel" id="home-banner" aria-label="首页轮播">
-      <div id="bannerCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="第1张"></button>
-          <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1" aria-label="第2张"></button>
-          <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2" aria-label="第3张"></button>
-          <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="3" aria-label="第4张"></button>
+    <!-- 轮播图 + 左右快捷入口 -->
+    <section class="home-banner-zone" id="home-banner" aria-label="首页轮播与快捷入口">
+      <div class="container-fluid px-lg-4 py-3 py-lg-4">
+        <div class="row g-3 g-lg-4 align-items-stretch home-banner-row">
+          <div class="col-lg-2 d-none d-lg-flex flex-column gap-3 home-quick-side">
+            <a href="north.html" class="home-quick-card home-quick-card--side home-quick-card--north">
+              <span class="home-quick-icon">北</span>
+              <strong>北方风味</strong>
+              <small>烤鸭 · 涮肉 · 包子</small>
+            </a>
+            <a href="south.html" class="home-quick-card home-quick-card--side home-quick-card--south">
+              <span class="home-quick-icon">南</span>
+              <strong>南方风味</strong>
+              <small>早茶 · 糕点 · 小笼</small>
+            </a>
+            <a href="jiangxi.html" class="home-quick-card home-quick-card--side home-quick-card--jiangxi">
+              <span class="home-quick-icon">赣</span>
+              <strong>赣味传承</strong>
+              <small>瓦罐汤 · 白糖糕</small>
+            </a>
+          </div>
+          <div class="col-12 col-lg-8">
+            <div class="hero-carousel h-100 mb-0">
+              <div id="bannerCarousel" class="carousel slide carousel-fade h-100" data-bs-ride="carousel" data-bs-interval="4000">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="第1张"></button>
+                  <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1" aria-label="第2张"></button>
+                  <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2" aria-label="第3张"></button>
+                  <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="3" aria-label="第4张"></button>
+                </div>
+                <div class="carousel-inner h-100 rounded-3 overflow-hidden shadow">
+                  <div class="carousel-item active h-100">
+                    <img src="images/banner/Banner1.jpg" class="d-block w-100 carousel-img" alt="中华老字号传统美食文化">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h2>传承百年味</h2>
+                      <p>北京烤鸭，京味老字号经典</p>
+                    </div>
+                  </div>
+                  <div class="carousel-item h-100">
+                    <img src="images/banner/Banner2.jpg" class="d-block w-100 carousel-img" alt="南方风味老字号">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h2>南韵清雅</h2>
+                      <p>竹笼点心，粤式早茶文化</p>
+                    </div>
+                  </div>
+                  <div class="carousel-item h-100">
+                    <img src="images/banner/Banner3.jpg" class="d-block w-100 carousel-img" alt="传统糕点">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h2>糕香茶韵</h2>
+                      <p>传统糕点，时节之味</p>
+                    </div>
+                  </div>
+                  <div class="carousel-item h-100">
+                    <img src="images/banner/Banner4.jpg" class="d-block w-100 carousel-img" alt="非遗美食工艺">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h2>赣鄱风味</h2>
+                      <p>南昌拌粉，江南北传</p>
+                    </div>
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">上一张</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">下一张</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 d-none d-lg-flex flex-column gap-3 home-quick-side">
+            <a href="heritage.html" class="home-quick-card home-quick-card--side home-quick-card--heritage">
+              <span class="home-quick-icon">遗</span>
+              <strong>非遗工艺</strong>
+              <small>匠心 · 技艺传承</small>
+            </a>
+            <a href="contact.html" class="home-quick-card home-quick-card--side home-quick-card--contact">
+              <span class="home-quick-icon">互</span>
+              <strong>互动体验</strong>
+              <small>留言 · 课程心得</small>
+            </a>
+            <a href="#home-map" class="home-quick-card home-quick-card--side home-quick-card--map">
+              <span class="home-quick-icon">图</span>
+              <strong>美食地图</strong>
+              <small>纵览地域风味</small>
+            </a>
+          </div>
         </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="images/banner/Banner1.jpg" class="d-block w-100 carousel-img" alt="中华老字号传统美食文化">
-            <div class="carousel-caption d-none d-md-block">
-              <h2>传承百年味</h2>
-              <p>北京烤鸭，京味老字号经典</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="images/banner/Banner2.jpg" class="d-block w-100 carousel-img" alt="南方风味老字号">
-            <div class="carousel-caption d-none d-md-block">
-              <h2>南韵清雅</h2>
-              <p>竹笼点心，粤式早茶文化</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="images/banner/Banner3.jpg" class="d-block w-100 carousel-img" alt="传统糕点">
-            <div class="carousel-caption d-none d-md-block">
-              <h2>糕香茶韵</h2>
-              <p>传统糕点，时节之味</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="images/banner/Banner4.jpg" class="d-block w-100 carousel-img" alt="非遗美食工艺">
-            <div class="carousel-caption d-none d-md-block">
-              <h2>赣鄱风味</h2>
-              <p>南昌拌粉，江南北传</p>
-            </div>
+        <!-- 移动端快捷入口 -->
+        <div class="d-lg-none home-quick-mobile mt-3 reveal">
+          <p class="text-center small text-muted mb-2">专题快捷入口</p>
+          <div class="home-quick-grid home-quick-grid--mobile">
+            <a href="north.html" class="home-quick-card home-quick-card--compact home-quick-card--north">
+              <span class="home-quick-icon">北</span>
+              <strong>北方风味</strong>
+            </a>
+            <a href="south.html" class="home-quick-card home-quick-card--compact home-quick-card--south">
+              <span class="home-quick-icon">南</span>
+              <strong>南方风味</strong>
+            </a>
+            <a href="jiangxi.html" class="home-quick-card home-quick-card--compact home-quick-card--jiangxi">
+              <span class="home-quick-icon">赣</span>
+              <strong>赣味传承</strong>
+            </a>
+            <a href="heritage.html" class="home-quick-card home-quick-card--compact home-quick-card--heritage">
+              <span class="home-quick-icon">遗</span>
+              <strong>非遗工艺</strong>
+            </a>
+            <a href="contact.html" class="home-quick-card home-quick-card--compact home-quick-card--contact">
+              <span class="home-quick-icon">互</span>
+              <strong>互动体验</strong>
+            </a>
+            <a href="#home-map" class="home-quick-card home-quick-card--compact home-quick-card--map">
+              <span class="home-quick-icon">图</span>
+              <strong>美食地图</strong>
+            </a>
           </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">上一张</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">下一张</span>
-        </button>
       </div>
     </section>
 
@@ -152,6 +237,80 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- 什么是中华老字号（深度解读） -->
+    <section class="home-heritage-block py-5" id="home-heritage-intro">
+      <div class="container">
+        <div class="section-heading text-center mb-4 reveal">
+          <span class="section-tag">文化溯源</span>
+          <h2 class="section-title">什么是中华老字号</h2>
+          <div class="title-divider"></div>
+          <p class="section-desc">商务部认定标准下的历史传承、文化价值与社会影响力</p>
+        </div>
+
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-5">
+            <div class="heritage-paper-card reveal">
+              <p>「中华老字号」指拥有世代相传的产品、技艺或服务，兼具鲜明民族文化底蕴与社会公信力，经商务部认定并纳入保护名录的品牌。它不仅是商业标识，更是连接传统配方、地方记忆与国民情感的活态遗产——从清晨的一笼小笼，到节庆的一块糕点，老字号持续塑造着中国人的饮食方式与文化认同。</p>
+            </div>
+            <div class="heritage-stats row g-3 mt-2 reveal">
+              <div class="col-6">
+                <div class="heritage-stat-item heritage-stat-item--home">
+                  <span class="heritage-stat-num" data-count="400">0</span><span class="heritage-stat-unit">+</span>
+                  <span class="heritage-stat-label">认定老字号</span>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="heritage-stat-item heritage-stat-item--home">
+                  <span class="heritage-stat-num" data-count="300">0</span><span class="heritage-stat-unit">+</span>
+                  <span class="heritage-stat-label">年最长历史</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <div class="heritage-timeline reveal" id="heritageTimeline">
+              <div class="heritage-timeline-line" aria-hidden="true"></div>
+              <div class="heritage-timeline-item">
+                <span class="heritage-timeline-dot"></span>
+                <div class="heritage-timeline-content">
+                  <time>历史渊源</time>
+                  <h4>世代传承</h4>
+                  <p>多数老字号创于明清，以家族或师徒制延续独门配方与手工技艺，沉淀为独特的品牌基因。</p>
+                </div>
+              </div>
+              <div class="heritage-timeline-item">
+                <span class="heritage-timeline-dot"></span>
+                <div class="heritage-timeline-content">
+                  <time>2006 年</time>
+                  <h4>国家认定</h4>
+                  <p>商务部启动「中华老字号」认定，建立统一标准，推动品牌保护与传承体系建设。</p>
+                </div>
+              </div>
+              <div class="heritage-timeline-item">
+                <span class="heritage-timeline-dot"></span>
+                <div class="heritage-timeline-content">
+                  <time>非遗保护</time>
+                  <h4>技艺入遗</h4>
+                  <p>烤鸭、制茶、糕点等核心技艺列入国家级非遗名录，获得制度性保护与传承支持。</p>
+                </div>
+              </div>
+              <div class="heritage-timeline-item">
+                <span class="heritage-timeline-dot"></span>
+                <div class="heritage-timeline-content">
+                  <time>当代</time>
+                  <h4>活化创新</h4>
+                  <p>在守正基础上拥抱数字化与国潮设计，让百年品牌走进年轻人的日常生活。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="text-center mt-4 mb-0 reveal">
+          <a href="heritage.html" class="btn btn-outline-primary btn-sm">了解更多非遗工艺 →</a>
+        </p>
       </div>
     </section>
 
@@ -224,6 +383,10 @@
       <p class="footer-year">2026</p>
     </div>
   </footer>
+
+  <audio id="siteBgm" class="site-bgm" loop preload="auto" aria-hidden="true">
+    <source src="audio/bgm.m4a" type="audio/mp4">
+  </audio>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/main.js"></script>
