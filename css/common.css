@@ -1,0 +1,223 @@
+/* ========================================
+   全局沉浸式过渡 · 全站复用
+   渐变 / 毛玻璃 / 视差 / 滚动淡入
+   ======================================== */
+
+:root {
+  --immerse-ease: ease-out;
+  --immerse-duration: 0.35s;
+  --immerse-transition: 0.35s ease-out;
+  --immerse-reveal-distance: 20px;
+  --immerse-reveal-duration: 0.55s;
+  --immerse-glass-bg: rgba(243, 234, 216, 0.4);
+  --immerse-glass-bg-scrolled: rgba(243, 234, 216, 0.95);
+  --immerse-glass-border: rgba(212, 175, 55, 0.32);
+  --immerse-glass-blur: 14px;
+  --immerse-glass-blur-scrolled: 22px;
+  --immerse-beige: #f3ead8;
+  --immerse-beige-light: #faf6ec;
+  --immerse-text: #4a3828;
+  --immerse-text-soft: #736052;
+  --immerse-accent-gold: #c9a227;
+  --immerse-warm-filter: brightness(0.85) saturate(1.1) sepia(0.08);
+}
+
+/* --- 统一缓动 --- */
+.immerse-transition,
+.immerse-glass,
+.immerse-glass-nav,
+.immerse-glass-header,
+.home-quick-card,
+.site-nav .nav-link {
+  transition:
+    background var(--immerse-transition),
+    backdrop-filter var(--immerse-transition),
+    -webkit-backdrop-filter var(--immerse-transition),
+    border-color var(--immerse-transition),
+    box-shadow var(--immerse-transition),
+    opacity var(--immerse-transition),
+    transform var(--immerse-transition),
+    color var(--immerse-transition);
+}
+
+/* --- 毛玻璃 --- */
+.immerse-glass,
+.immerse-glass-header {
+  background: var(--immerse-glass-bg);
+  backdrop-filter: blur(var(--immerse-glass-blur)) saturate(1.12);
+  -webkit-backdrop-filter: blur(var(--immerse-glass-blur)) saturate(1.12);
+  border: 1px solid var(--immerse-glass-border);
+}
+
+.immerse-glass-nav {
+  background: var(--immerse-glass-bg);
+  backdrop-filter: blur(var(--immerse-glass-blur)) saturate(1.1);
+  -webkit-backdrop-filter: blur(var(--immerse-glass-blur)) saturate(1.1);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.28);
+  box-shadow: 0 4px 24px rgba(74, 56, 40, 0.06);
+}
+
+.immerse-glass-nav.is-scrolled {
+  background: var(--immerse-glass-bg-scrolled);
+  backdrop-filter: blur(var(--immerse-glass-blur-scrolled)) saturate(1.15);
+  -webkit-backdrop-filter: blur(var(--immerse-glass-blur-scrolled)) saturate(1.15);
+  box-shadow: 0 6px 28px rgba(74, 56, 40, 0.1);
+}
+
+/* --- 渐变缓冲桥 --- */
+.immerse-gradient-bridge {
+  height: 80px;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(243, 234, 216, 0.55) 0%,
+    rgba(243, 234, 216, 0.78) 45%,
+    var(--immerse-beige) 100%
+  );
+}
+
+/* --- 板块间中式金色分割 --- */
+.immerse-section-divider {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 1px;
+}
+
+.immerse-section-divider::before {
+  content: "";
+  display: block;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(201, 162, 39, 0.15) 15%,
+    rgba(201, 162, 39, 0.55) 50%,
+    rgba(201, 162, 39, 0.15) 85%,
+    transparent 100%
+  );
+}
+
+.immerse-section-divider::after {
+  content: "◆";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.55rem;
+  color: rgba(201, 162, 39, 0.65);
+  background: var(--immerse-beige);
+  padding: 0 0.65rem;
+  letter-spacing: 0.2em;
+}
+
+/* --- 滚动视口淡入上浮 --- */
+.immerse-reveal,
+.reveal {
+  opacity: 0;
+  transform: translateY(var(--immerse-reveal-distance));
+  transition:
+    opacity var(--immerse-reveal-duration) var(--immerse-ease),
+    transform var(--immerse-reveal-duration) var(--immerse-ease);
+}
+
+.immerse-reveal.is-visible,
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.immerse-reveal--delay-1 { transition-delay: 0.08s; }
+.immerse-reveal--delay-2 { transition-delay: 0.16s; }
+.immerse-reveal--delay-3 { transition-delay: 0.24s; }
+
+/* --- 视差背景层 --- */
+.immerse-parallax-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.immerse-parallax-photo {
+  position: absolute;
+  inset: -8% 0 -12%;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  will-change: transform;
+}
+
+/* --- 长距离底部渐变蒙版 --- */
+.immerse-hero-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 300px;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(243, 234, 216, 0.06) 40%,
+    rgba(243, 234, 216, 0.42) 68%,
+    rgba(243, 234, 216, 0.78) 88%,
+    rgba(250, 246, 236, 0.92) 100%
+  );
+}
+
+/* --- 暖光全局滤镜层 --- */
+.immerse-warm-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 40%,
+    rgba(255, 210, 140, 0.12) 0%,
+    transparent 70%
+  );
+  mix-blend-mode: soft-light;
+}
+
+/* --- 标题金色装饰线 --- */
+.immerse-title-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.immerse-title-ornament::before,
+.immerse-title-ornament::after {
+  content: "";
+  flex: 1;
+  max-width: 80px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(201, 162, 39, 0.6)
+  );
+}
+
+.immerse-title-ornament::after {
+  background: linear-gradient(
+    90deg,
+    rgba(201, 162, 39, 0.6),
+    transparent
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .immerse-reveal,
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .immerse-parallax-photo {
+    transform: none !important;
+  }
+}

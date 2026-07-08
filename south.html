@@ -4,10 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>舌尖上的老字号——南方风味</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style.css?v=20260710" rel="stylesheet">
+  <link href="css/common.css?v=20260710" rel="stylesheet">
 </head>
-<body class="page-south">
+<body class="page-south page-south--arcade">
+
+  <!-- 冰裂纹 clip-path 定义 -->
+  <svg class="south-clip-defs" aria-hidden="true" width="0" height="0">
+    <defs>
+      <clipPath id="southIceLattice" clipPathUnits="objectBoundingBox">
+        <path d="M 0.04 0.02 L 0.22 0 L 0.38 0.06 L 0.55 0 L 0.72 0.05 L 0.96 0.02 L 1 0.12 L 0.94 0.28 L 1 0.42 L 0.96 0.58 L 1 0.72 L 0.94 0.88 L 0.96 0.98 L 0.72 1 L 0.55 0.94 L 0.38 1 L 0.22 0.96 L 0.04 0.98 L 0 0.88 L 0.06 0.72 L 0 0.58 L 0.06 0.42 L 0 0.28 L 0.06 0.12 Z"/>
+      </clipPath>
+      <clipPath id="southJiangnanLattice" clipPathUnits="objectBoundingBox">
+        <path d="M 0.05 0.04 L 0.95 0.04 L 0.95 0.96 L 0.05 0.96 Z"/>
+      </clipPath>
+      <clipPath id="southSuzhouLattice" clipPathUnits="objectBoundingBox">
+        <path d="M 0.5 0.02 L 0.92 0.18 L 0.98 0.5 L 0.92 0.82 L 0.5 0.98 L 0.08 0.82 L 0.02 0.5 L 0.08 0.18 Z"/>
+      </clipPath>
+    </defs>
+  </svg>
+
+  <!-- 全屏岭南骑楼背景 + 宣纸噪点 -->
+  <div class="south-arcade-bg" aria-hidden="true">
+    <div class="south-arcade-photo"></div>
+    <div class="south-arcade-shade"></div>
+    <div class="south-arcade-paper"></div>
+  </div>
+
+  <div class="bg-scene" aria-hidden="true">
+    <div class="bg-scene-photo"></div>
+    <div class="bg-scene-mask"></div>
+  </div>
 
   <header class="site-header">
     <div class="container text-center">
@@ -23,8 +54,12 @@
         aria-controls="mainNavbar" aria-expanded="false" aria-label="切换导航">
         <span class="navbar-toggler-icon"></span>
       </button>
+      <button type="button" class="nav-bgm-btn nav-bgm-btn--mobile d-lg-none" aria-label="背景音乐控制" aria-pressed="false">
+        <span class="nav-bgm-icon" aria-hidden="true">♫</span>
+        <span class="nav-bgm-text">音乐</span>
+      </button>
       <div class="collapse navbar-collapse" id="mainNavbar">
-        <ul class="navbar-nav navbar-nav-main mx-lg-auto">
+        <ul class="navbar-nav navbar-nav-main">
           <li class="nav-item"><a class="nav-link" href="index.html">首页</a></li>
           <li class="nav-item"><a class="nav-link" href="north.html">北方风味</a></li>
           <li class="nav-item"><a class="nav-link active" href="south.html">南方风味</a></li>
@@ -38,9 +73,9 @@
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-            <input type="search" class="nav-search-input" placeholder="搜索老字号美食..." aria-label="搜索老字号美食" readonly tabindex="-1">
+            <input type="text" class="nav-search-input" placeholder="搜索老字号美食..." aria-label="搜索老字号美食（装饰展示）" autocomplete="off">
           </form>
-          <button type="button" class="nav-bgm-btn" id="navBgmBtn" aria-label="背景音乐控制" aria-pressed="false">
+          <button type="button" class="nav-bgm-btn d-none d-lg-inline-flex" id="navBgmBtn" aria-label="背景音乐控制" aria-pressed="false">
             <span class="nav-bgm-icon" aria-hidden="true">♫</span>
             <span class="nav-bgm-text">音乐</span>
           </button>
@@ -63,177 +98,165 @@
 
   <main class="page-main">
 
-    <!-- 页面 Banner -->
-    <section class="page-banner page-banner--south">
-      <div class="page-banner-media" style="background-image: url('images/banner/Banner2.jpg')"></div>
-      <div class="page-banner-mask"></div>
-      <div class="container page-banner-inner">
-        <div class="page-banner-body reveal">
-          <div class="page-banner-ornament" aria-hidden="true"><span></span><span></span><span></span></div>
-          <span class="page-banner-label">SOUTH · 南方风味</span>
-          <h2 class="page-banner-title">南方风味<em>老字号</em></h2>
-          <p class="page-banner-desc">从广式早茶到江南糕点，南方老字号展现着中华饮食文化的精致、清雅与传承之美。</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 品牌展示区 -->
-    <section class="north-brand-section py-5" id="page-content">
+    <!-- 广州酒家 · 冰裂纹窗棂展陈 -->
+    <section class="south-brand-section py-5" id="page-content">
       <div class="container">
 
-        <!-- 广州酒家 -->
-        <article class="north-brand-panel reveal" id="brand-guangzhou">
-          <header class="north-panel-header">
-            <span class="north-panel-index">01</span>
-            <h3 class="north-panel-title"><a href="heritage.html#craft-dimsum" class="keyword-link" title="查看广式点心制作技艺">广州酒家</a></h3>
-          </header>
+        <article class="south-lattice-panel south-lattice-panel--lingnan south-load-rise" id="brand-guangzhou">
+          <div class="south-lattice-frame" aria-hidden="true"></div>
+          <div class="south-lattice-inner">
 
-          <div class="north-meta-bar reveal">
-            <ul class="north-facts list-unstyled mb-0">
-              <li><span>创立时间</span><strong>1935 年</strong></li>
-              <li><span>所在地</span><strong>广州</strong></li>
-              <li><span>代表美食</span><strong><a href="heritage.html#craft-dimsum" class="keyword-link" title="查看广式点心制作技艺">广式点心</a>、虾饺、烧卖</strong></li>
-            </ul>
-          </div>
+            <header class="south-lattice-header text-center">
+              <span class="south-tag south-tag--index">01</span>
+              <h3 class="south-brand-gold-title">广州酒家</h3>
+              <p class="south-lattice-sub">老字号门店 · 岭南茶楼</p>
+            </header>
 
-          <div class="north-store-single reveal">
-            <button type="button" class="north-img-wrap"
-              data-bs-toggle="modal" data-bs-target="#imageModal"
-              data-img-src="images/south/guangzhou/store.jpg"
-              data-img-title="广州酒家店面">
-              <img src="images/south/guangzhou/store.jpg" class="north-img" alt="广州酒家店面">
-              <span class="north-img-tip">点击查看大图</span>
-            </button>
-          </div>
+            <div class="south-tags-row">
+              <span class="south-tag"><em>创立</em><strong>1935 年</strong></span>
+              <span class="south-tag"><em>所在</em><strong>广州</strong></span>
+              <span class="south-tag south-tag--wide"><em>代表美食</em><strong><a href="heritage.html#craft-dimsum" class="south-keyword-gold keyword-link" title="查看广式点心制作技艺">广式点心</a> · 虾饺 · 烧卖</strong></span>
+            </div>
 
-          <div class="row g-4 north-food-pair reveal">
-            <div class="col-md-6">
-              <button type="button" class="north-img-wrap"
+            <div class="south-door-hero">
+              <button type="button" class="south-door-ring north-img-wrap"
+                data-bs-toggle="modal" data-bs-target="#imageModal"
+                data-img-src="images/south/guangzhou/store.jpg"
+                data-img-title="广州酒家店面">
+                <span class="south-door-glow" aria-hidden="true"></span>
+                <img src="images/south/guangzhou/store.jpg" class="south-door-img" alt="广州酒家店面">
+                <span class="south-door-tip">点击查看大图</span>
+              </button>
+            </div>
+
+            <div class="south-food-float">
+              <button type="button" class="south-food-card south-food-card--large north-img-wrap"
                 data-bs-toggle="modal" data-bs-target="#imageModal"
                 data-img-src="images/south/guangzhou/food1.jpg"
                 data-img-title="广州酒家广式早茶">
-                <img src="images/south/guangzhou/food1.jpg" class="north-img" alt="广州酒家广式早茶">
-                <span class="north-img-tip">点击查看大图</span>
+                <img src="images/south/guangzhou/food1.jpg" alt="广州酒家广式早茶">
+                <span class="south-tag south-tag--caption">广式早茶</span>
               </button>
-            </div>
-            <div class="col-md-6">
-              <button type="button" class="north-img-wrap"
+              <button type="button" class="south-food-card south-food-card--small north-img-wrap"
                 data-bs-toggle="modal" data-bs-target="#imageModal"
                 data-img-src="images/south/guangzhou/food2.jpg"
                 data-img-title="广州酒家经典点心">
-                <img src="images/south/guangzhou/food2.jpg" class="north-img" alt="广州酒家虾饺烧卖">
-                <span class="north-img-tip">点击查看大图</span>
+                <img src="images/south/guangzhou/food2.jpg" alt="广州酒家虾饺烧卖">
+                <span class="south-tag south-tag--caption">经典点心</span>
               </button>
             </div>
-          </div>
 
-          <div class="north-heritage-box reveal">
-            <h5>品牌介绍</h5>
-            <p><a href="heritage.html#craft-dimsum" class="keyword-link" title="查看广式点心制作技艺">广州酒家</a>始创于1935年，是华南地区最具影响力的餐饮老字号之一，素有"食在广州"之代表美誉。品牌源于西关茶楼文化，以广式早茶、粤菜宴席闻名珠三角。一盅两件、闲话家常，早茶不仅是饮食方式，更是岭南市井社交的重要载体，承载着广府人慢享生活的智慧。经典虾饺皮薄透澄、烧卖顶端敞口露馅，叉烧包裂皮流沙，均体现"清而不淡、鲜而不俗"的粤菜精髓。历经近九十年，广州酒家从沿江路总店走向全国，在坚守传统<a href="heritage.html#craft-dimsum" class="keyword-link" title="查看广式点心制作技艺">点心手工技艺</a>的同时推进标准化与品牌化经营，让广府饮食文化传播至海内外，成为南方老字号守正创新、传承发展的典范。</p>
+            <div class="south-intro-box">
+              <h5>品牌介绍</h5>
+              <p><a href="heritage.html#craft-dimsum" class="south-keyword-gold keyword-link" title="查看广式点心制作技艺">广州酒家</a>始创于1935年，是华南地区最具影响力的餐饮老字号之一，素有"食在广州"之代表美誉。品牌源于西关茶楼文化，以<a href="heritage.html#craft-dimsum" class="south-keyword-gold keyword-link" title="查看广式点心制作技艺">广式点心</a>、粤菜宴席闻名珠三角。一盅两件、闲话家常，早茶不仅是饮食方式，更是岭南市井社交的重要载体，承载着广府人慢享生活的智慧。经典虾饺皮薄透澄、烧卖顶端敞口露馅，叉烧包裂皮流沙，均体现"清而不淡、鲜而不俗"的粤菜精髓。历经近九十年，广州酒家从沿江路总店走向全国，在坚守传统<a href="heritage.html#craft-dimsum" class="south-keyword-gold keyword-link" title="查看广式点心制作技艺">点心手工技艺</a>的同时推进标准化与品牌化经营，让广府饮食文化传播至海内外，成为南方老字号守正创新、传承发展的典范。</p>
+            </div>
+
           </div>
         </article>
 
-        <!-- 知味观 -->
-        <article class="north-brand-panel reveal" id="brand-zhiweiguan">
-          <header class="north-panel-header">
-            <span class="north-panel-index">02</span>
-            <h3 class="north-panel-title">知味观</h3>
-          </header>
+        <!-- 知味观 · 江南拱楣展陈 -->
+        <article class="south-lattice-panel south-lattice-panel--jiangnan south-load-rise" id="brand-zhiweiguan">
+          <div class="south-lattice-frame south-lattice-frame--jiangnan" aria-hidden="true"></div>
+          <div class="south-lattice-inner">
 
-          <div class="north-meta-bar reveal">
-            <ul class="north-facts list-unstyled mb-0">
-              <li><span>创立时间</span><strong>1913 年</strong></li>
-              <li><span>所在地</span><strong>杭州</strong></li>
-              <li><span>代表美食</span><strong>小笼包、猫耳朵、西湖特色点心</strong></li>
-            </ul>
-          </div>
+            <header class="south-lattice-header text-center">
+              <span class="south-tag south-tag--index south-tag--jiangnan">02</span>
+              <h3 class="south-brand-jade-title">知味观</h3>
+              <p class="south-lattice-sub">西湖湖滨 · 江南知味</p>
+            </header>
 
-          <div class="north-store-single reveal">
-            <button type="button" class="north-img-wrap"
-              data-bs-toggle="modal" data-bs-target="#imageModal"
-              data-img-src="images/south/zhiweiguan/store.jpg"
-              data-img-title="知味观店面">
-              <img src="images/south/zhiweiguan/store.jpg" class="north-img" alt="知味观店面">
-              <span class="north-img-tip">点击查看大图</span>
-            </button>
-          </div>
+            <div class="south-tags-row">
+              <span class="south-tag south-tag--jiangnan"><em>创立</em><strong>1913 年</strong></span>
+              <span class="south-tag south-tag--jiangnan"><em>所在</em><strong>杭州</strong></span>
+              <span class="south-tag south-tag--wide"><em>代表美食</em><strong><span class="south-keyword-jade">小笼包</span> · 猫耳朵 · 西湖点心</strong></span>
+            </div>
 
-          <div class="row g-4 north-food-pair reveal">
-            <div class="col-md-6">
-              <button type="button" class="north-img-wrap"
+            <div class="south-door-hero">
+              <button type="button" class="south-portrait-ring north-img-wrap"
                 data-bs-toggle="modal" data-bs-target="#imageModal"
-                data-img-src="images/south/zhiweiguan/food1.jpg"
-                data-img-title="知味观小笼包">
-                <img src="images/south/zhiweiguan/food1.jpg" class="north-img" alt="知味观小笼包">
-                <span class="north-img-tip">点击查看大图</span>
+                data-img-src="images/south/zhiweiguan/store.jpg"
+                data-img-title="知味观店面">
+                <span class="south-portrait-glow" aria-hidden="true"></span>
+                <img src="images/south/zhiweiguan/store.jpg" class="south-portrait-img" alt="知味观店面">
+                <span class="south-door-tip">点击查看大图</span>
               </button>
             </div>
-            <div class="col-md-6">
-              <button type="button" class="north-img-wrap"
+
+            <div class="south-food-float south-food-float--mirror">
+              <button type="button" class="south-food-card south-food-card--small north-img-wrap"
                 data-bs-toggle="modal" data-bs-target="#imageModal"
                 data-img-src="images/south/zhiweiguan/food2.jpg"
                 data-img-title="知味观江南点心">
-                <img src="images/south/zhiweiguan/food2.jpg" class="north-img" alt="知味观西湖特色点心">
-                <span class="north-img-tip">点击查看大图</span>
+                <img src="images/south/zhiweiguan/food2.jpg" alt="知味观西湖特色点心">
+                <span class="south-tag south-tag--caption south-tag--jiangnan">西湖点心</span>
+              </button>
+              <button type="button" class="south-food-card south-food-card--large north-img-wrap"
+                data-bs-toggle="modal" data-bs-target="#imageModal"
+                data-img-src="images/south/zhiweiguan/food1.jpg"
+                data-img-title="知味观小笼包">
+                <img src="images/south/zhiweiguan/food1.jpg" alt="知味观小笼包">
+                <span class="south-tag south-tag--caption south-tag--jiangnan">小笼包</span>
               </button>
             </div>
-          </div>
 
-          <div class="north-heritage-box reveal">
-            <h5>品牌介绍</h5>
-            <p>知味观创建于1913年，坐落于杭州湖滨，是江南饮食文化的标志性老字号。品牌名取"知味"二字，寓意识味、品味与守味，百余年来深耕杭帮菜与江南点心。小笼包皮薄汁丰、收口如菊，猫耳朵面片卷曲似耳，西湖醋鱼等名菜讲究酸甜平衡、本味至上，将西湖风物与季节食材融入菜单，形成清雅精致的江南食风。知味观见证了杭州从民国商埠到现代都市的变迁，从河坊街起家到连锁布局，既传承手工面点技艺，又适应现代餐饮需求，是连接西湖人文与当代生活的味觉纽带，展现了南方老字号在守正创新中的持久魅力与品牌生命力。</p>
+            <div class="south-intro-box south-intro-box--jiangnan">
+              <h5>品牌介绍</h5>
+              <p>知味观创建于1913年，坐落于杭州湖滨，是江南饮食文化的标志性老字号。品牌名取"知味"二字，寓意识味、品味与守味，百余年来深耕杭帮菜与江南点心。<span class="south-keyword-jade">小笼包</span>皮薄汁丰、收口如菊，猫耳朵面片卷曲似耳，西湖醋鱼等名菜讲究酸甜平衡、本味至上，将西湖风物与季节食材融入菜单，形成清雅精致的江南食风。知味观见证了杭州从民国商埠到现代都市的变迁，从河坊街起家到连锁布局，既传承手工面点技艺，又适应现代餐饮需求，是连接西湖人文与当代生活的味觉纽带。</p>
+            </div>
+
           </div>
         </article>
 
-        <!-- 稻香村 -->
-        <article class="north-brand-panel reveal" id="brand-daoxiangcun">
-          <header class="north-panel-header">
-            <span class="north-panel-index">03</span>
-            <h3 class="north-panel-title"><a href="heritage.html#craft-pastry" class="keyword-link" title="查看传统糕点制作工艺">稻香村</a></h3>
-          </header>
+        <!-- 稻香村 · 姑苏八角展陈 -->
+        <article class="south-lattice-panel south-lattice-panel--suzhou south-load-rise" id="brand-daoxiangcun">
+          <div class="south-lattice-frame south-lattice-frame--suzhou" aria-hidden="true"></div>
+          <div class="south-lattice-inner">
 
-          <div class="north-meta-bar reveal">
-            <ul class="north-facts list-unstyled mb-0">
-              <li><span>创立时间</span><strong>1773 年</strong></li>
-              <li><span>所在地</span><strong>苏州</strong></li>
-              <li><span>代表美食</span><strong><a href="heritage.html#craft-pastry" class="keyword-link" title="查看传统糕点制作工艺">苏式糕点</a>、月饼、桃酥</strong></li>
-            </ul>
-          </div>
+            <header class="south-lattice-header text-center">
+              <span class="south-tag south-tag--index south-tag--suzhou">03</span>
+              <h3 class="south-brand-plum-title"><a href="heritage.html#craft-pastry" class="keyword-link" title="查看传统糕点制作工艺">稻香村</a></h3>
+              <p class="south-lattice-sub">姑苏制坊 · 百年糕香</p>
+            </header>
 
-          <div class="north-store-single reveal">
-            <button type="button" class="north-img-wrap"
-              data-bs-toggle="modal" data-bs-target="#imageModal"
-              data-img-src="images/south/daoxiangcun/store.jpg"
-              data-img-title="稻香村店面">
-              <img src="images/south/daoxiangcun/store.jpg" class="north-img" alt="苏州稻香村店面">
-              <span class="north-img-tip">点击查看大图</span>
-            </button>
-          </div>
+            <div class="south-tags-row">
+              <span class="south-tag south-tag--suzhou"><em>创立</em><strong>1773 年</strong></span>
+              <span class="south-tag south-tag--suzhou"><em>所在</em><strong>苏州</strong></span>
+              <span class="south-tag south-tag--suzhou south-tag--wide"><em>代表美食</em><strong><a href="heritage.html#craft-pastry" class="south-keyword-plum keyword-link" title="查看传统糕点制作工艺">苏式糕点</a> · 月饼 · 桃酥</strong></span>
+            </div>
 
-          <div class="row g-4 north-food-pair reveal">
-            <div class="col-md-6">
-              <button type="button" class="north-img-wrap"
+            <div class="south-door-hero">
+              <button type="button" class="south-seal-ring north-img-wrap"
+                data-bs-toggle="modal" data-bs-target="#imageModal"
+                data-img-src="images/south/daoxiangcun/store.jpg"
+                data-img-title="稻香村店面">
+                <span class="south-seal-glow" aria-hidden="true"></span>
+                <img src="images/south/daoxiangcun/store.jpg" class="south-seal-img" alt="苏州稻香村店面">
+                <span class="south-door-tip">点击查看大图</span>
+              </button>
+            </div>
+
+            <div class="south-food-float south-food-float--stagger">
+              <button type="button" class="south-food-card south-food-card--large north-img-wrap"
                 data-bs-toggle="modal" data-bs-target="#imageModal"
                 data-img-src="images/south/daoxiangcun/food1.jpg"
                 data-img-title="稻香村苏式糕点">
-                <img src="images/south/daoxiangcun/food1.jpg" class="north-img" alt="稻香村苏式糕点">
-                <span class="north-img-tip">点击查看大图</span>
+                <img src="images/south/daoxiangcun/food1.jpg" alt="稻香村苏式糕点">
+                <span class="south-tag south-tag--caption south-tag--suzhou">苏式糕点</span>
               </button>
-            </div>
-            <div class="col-md-6">
-              <button type="button" class="north-img-wrap"
+              <button type="button" class="south-food-card south-food-card--small north-img-wrap"
                 data-bs-toggle="modal" data-bs-target="#imageModal"
                 data-img-src="images/south/daoxiangcun/food2.jpg"
                 data-img-title="稻香村传统月饼">
-                <img src="images/south/daoxiangcun/food2.jpg" class="north-img" alt="稻香村月饼桃酥">
-                <span class="north-img-tip">点击查看大图</span>
+                <img src="images/south/daoxiangcun/food2.jpg" alt="稻香村月饼桃酥">
+                <span class="south-tag south-tag--caption south-tag--suzhou">月饼桃酥</span>
               </button>
             </div>
-          </div>
 
-          <div class="north-heritage-box reveal">
-            <h5>品牌介绍</h5>
-            <p>苏州<a href="heritage.html#craft-pastry" class="keyword-link" title="查看传统糕点制作工艺">稻香村</a>始创于1773年，是中国历史最为悠久的老字号糕点品牌之一，以苏式点心享誉全国。苏式糕点讲究精细制坊、应季而制，月饼酥皮层叠如纸，桃仁扁松、枣泥洗沙，桃酥香酥入喉，无不体现江南匠人对甜度与层次的极致追求。稻香村承载着姑苏岁时节令与礼俗文化，是婚嫁、中秋、访亲送礼的首选，见证了江南商贸与民俗的百年流转。进入当代，品牌在保留<a href="heritage.html#craft-pastry" class="keyword-link" title="查看传统糕点制作工艺">古法糕点制作</a>精髓的同时引进现代生产线与电子商务，让传统苏点走进千家万户，成为中华糕点技艺活态传承与老字号现代化转型的代表性案例，续写着"稻香村"三字背后的江南甜意。</p>
+            <div class="south-intro-box south-intro-box--suzhou">
+              <h5>品牌介绍</h5>
+              <p>苏州<a href="heritage.html#craft-pastry" class="south-keyword-plum keyword-link" title="查看传统糕点制作工艺">稻香村</a>始创于1773年，是中国历史最为悠久的老字号糕点品牌之一，以<a href="heritage.html#craft-pastry" class="south-keyword-plum keyword-link" title="查看传统糕点制作工艺">苏式糕点</a>享誉全国。苏式糕点讲究精细制坊、应季而制，月饼酥皮层叠如纸，桃仁扁松、枣泥洗沙，桃酥香酥入喉，无不体现江南匠人对甜度与层次的极致追求。稻香村承载着姑苏岁时节令与礼俗文化，是婚嫁、中秋、访亲送礼的首选，见证了江南商贸与民俗的百年流转。进入当代，品牌在保留<a href="heritage.html#craft-pastry" class="south-keyword-plum keyword-link" title="查看传统糕点制作工艺">古法糕点制作</a>精髓的同时引进现代生产线与电子商务，让传统苏点走进千家万户。</p>
+            </div>
+
           </div>
         </article>
 
@@ -249,34 +272,22 @@
           <div class="title-divider"></div>
           <p class="section-desc">领略岭南早茶、江南雅味与苏式糕点的精致传承</p>
         </div>
-        <div class="row g-4">
-          <div class="col-lg-4">
-            <div class="card north-culture-card h-100 reveal">
-              <div class="card-body">
-                <div class="north-culture-icon">茶</div>
-                <h4 class="card-title"><a href="heritage.html#craft-dimsum" class="keyword-link" title="查看广式点心制作技艺">广式早茶</a></h4>
-                <p class="card-text">广式早茶是岭南饮食文化的灵魂，一盅两件、品茗叙旧，将饮食与社交融为一体。虾饺、烧卖、肠粉、凤爪等点心讲究手工现做、即蒸即食，体现粤菜"清鲜为本"的审美。早茶习俗从西关茶楼蔓延至粤港澳及海外华人社区，成为广府文化最具辨识度的生活方式之一，也是广州酒家等老字号传承百年的核心载体。</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card north-culture-card h-100 reveal">
-              <div class="card-body">
-                <div class="north-culture-icon">杭</div>
-                <h4 class="card-title">杭帮风味</h4>
-                <p class="card-text">杭帮菜以西湖为魂，讲究时令、本味与刀工，口味清鲜柔和、略带甘甜。知味观等小笼包、西湖醋鱼、龙井虾仁等名菜，将江南水色与食材融为一体。杭帮风味既承袭南宋遗韵，又融入市井烟火，是江南精致饮食的代表，展现南方老字号对地域文化的深度表达与世代传承。</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card north-culture-card h-100 reveal">
-              <div class="card-body">
-                <div class="north-culture-icon">糕</div>
-                <h4 class="card-title">苏式糕点</h4>
-                <p class="card-text">苏式糕点以<a href="heritage.html#craft-pastry" class="keyword-link" title="查看传统糕点制作工艺">稻香村</a>为代表，讲究形美、味雅、意长，重油重糖而不腻，酥松绵软层次分明。苏式月饼、松糕、定胜糕等应节而制，承载婚嫁、节庆与礼俗。精细制坊工艺与选料标准，使苏点成为江南手作饮食的典范，也是中华糕点非遗保护的重要对象。</p>
-              </div>
-            </div>
-          </div>
+        <div class="culture-mosaic">
+          <article class="culture-mosaic-card culture-mosaic-card--a reveal">
+            <div class="north-culture-icon">茶</div>
+            <h4 class="card-title"><a href="heritage.html#craft-dimsum" class="keyword-link" title="查看广式点心制作技艺">广式早茶</a></h4>
+            <p class="card-text">广式早茶是岭南饮食文化的灵魂，一盅两件、品茗叙旧，将饮食与社交融为一体。虾饺、烧卖、肠粉、凤爪等点心讲究手工现做、即蒸即食，体现粤菜"清鲜为本"的审美。早茶习俗从西关茶楼蔓延至粤港澳及海外华人社区，成为广府文化最具辨识度的生活方式之一，也是广州酒家等老字号传承百年的核心载体。</p>
+          </article>
+          <article class="culture-mosaic-card culture-mosaic-card--b reveal">
+            <div class="north-culture-icon">杭</div>
+            <h4 class="card-title">杭帮风味</h4>
+            <p class="card-text">杭帮菜以西湖为魂，讲究时令、本味与刀工，口味清鲜柔和、略带甘甜。知味观等小笼包、西湖醋鱼、龙井虾仁等名菜，将江南水色与食材融为一体。杭帮风味既承袭南宋遗韵，又融入市井烟火，是江南精致饮食的代表，展现南方老字号对地域文化的深度表达与世代传承。</p>
+          </article>
+          <article class="culture-mosaic-card culture-mosaic-card--c reveal">
+            <div class="north-culture-icon">糕</div>
+            <h4 class="card-title">苏式糕点</h4>
+            <p class="card-text">苏式糕点以<a href="heritage.html#craft-pastry" class="keyword-link" title="查看传统糕点制作工艺">稻香村</a>为代表，讲究形美、味雅、意长，重油重糖而不腻，酥松绵软层次分明。苏式月饼、松糕、定胜糕等应节而制，承载婚嫁、节庆与礼俗。精细制坊工艺与选料标准，使苏点成为江南手作饮食的典范，也是中华糕点非遗保护的重要对象。</p>
+          </article>
         </div>
       </div>
     </section>
@@ -312,7 +323,8 @@
     <span aria-hidden="true">↑</span>
   </button>
 
-  <audio id="siteBgm" class="site-bgm" loop preload="auto" aria-hidden="true">
+  <audio id="siteBgm" class="site-bgm" loop preload="auto" playsinline aria-hidden="true">
+    <source src="audio/bgm.mp3" type="audio/mpeg">
     <source src="audio/bgm.m4a" type="audio/mp4">
   </audio>
 

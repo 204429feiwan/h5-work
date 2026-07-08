@@ -5,37 +5,89 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>舌尖上的老字号——中华美食</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style.css?v=20260714" rel="stylesheet">
+  <link href="css/common.css?v=20260714" rel="stylesheet">
+  <script>
+    (function () {
+      try {
+        if (sessionStorage.getItem('siteSplashShown') === 'true') {
+          document.documentElement.classList.add('html-skip-splash');
+        }
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
 </head>
 <body class="page-home">
 
-  <div class="site-splash" id="siteSplash" aria-hidden="true">
+  <!-- 开屏印章动画（首次进入站点） -->
+  <div class="site-splash" id="siteSplash" role="dialog" aria-label="站点开屏">
     <div class="site-splash-inner">
       <div class="site-splash-seal" aria-hidden="true">
+        <span class="site-splash-seal-char">舌</span>
+        <span class="site-splash-seal-char">尖</span>
         <span class="site-splash-seal-char">老</span>
-        <span class="site-splash-seal-char">字</span>
         <span class="site-splash-seal-char">号</span>
       </div>
       <p class="site-splash-title">舌尖上的老字号</p>
     </div>
   </div>
 
-  <header class="site-header">
+  <!-- 全站场景底图（内容区透出古街虚化） -->
+  <div class="bg-scene" aria-hidden="true">
+    <div class="bg-scene-photo"></div>
+    <div class="bg-scene-mask"></div>
+  </div>
+
+  <!-- 顶部古街全景 Hero · 初始全屏，点击后收缩 -->
+  <section class="home-immersive-hero" id="home-hero" aria-label="首页沉浸背景">
+    <div class="home-hero-parallax immerse-parallax-wrap">
+      <img
+        class="home-immersive-photo home-hero-img immerse-parallax-photo"
+        id="homeParallaxPhoto"
+        src="images/background/scene-home.jpg"
+        alt="古街灯笼夜景"
+        fetchpriority="high"
+        decoding="async">
+    </div>
+    <div class="home-hero-warm-filter immerse-warm-overlay" aria-hidden="true"></div>
+    <div class="home-hero-gradient-mask immerse-hero-fade" aria-hidden="true"></div>
+    <div class="home-immersive-mask"></div>
+    <div class="home-immersive-curtains" aria-hidden="true">
+      <div class="home-immersive-curtain home-immersive-curtain--left"></div>
+      <div class="home-immersive-curtain home-immersive-curtain--right"></div>
+    </div>
+    <button type="button" class="home-immersive-hitarea" aria-label="点击进入专题"></button>
+    <div class="home-immersive-inner">
+      <p class="home-immersive-eyebrow">中华传统美食文化专题</p>
+      <p class="home-immersive-hint">点击进入专题</p>
+      <a href="#home-start" class="home-immersive-scroll">
+        <span>向下探索</span>
+        <span class="home-immersive-arrow" aria-hidden="true">↓</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="home-content-wrap" id="home-start">
+  <header class="site-header home-glass-header immerse-glass-header">
     <div class="container text-center">
       <h1 class="site-title">舌尖上的老字号</h1>
       <p class="site-subtitle">中华传统美食文化专题</p>
     </div>
   </header>
 
-  <nav class="navbar navbar-expand-lg site-nav">
+  <nav class="navbar navbar-expand-lg site-nav home-glass-nav immerse-glass-nav" id="homeGlassNav">
     <div class="container">
       <a class="navbar-brand" href="index.html">老字号美食</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
         aria-controls="mainNavbar" aria-expanded="false" aria-label="切换导航">
         <span class="navbar-toggler-icon"></span>
       </button>
+      <button type="button" class="nav-bgm-btn nav-bgm-btn--mobile d-lg-none" aria-label="背景音乐控制" aria-pressed="false">
+        <span class="nav-bgm-icon" aria-hidden="true">♫</span>
+        <span class="nav-bgm-text">音乐</span>
+      </button>
       <div class="collapse navbar-collapse" id="mainNavbar">
-        <ul class="navbar-nav navbar-nav-main mx-lg-auto">
+        <ul class="navbar-nav navbar-nav-main">
           <li class="nav-item">
             <a class="nav-link active" href="index.html">首页</a>
           </li>
@@ -61,9 +113,9 @@
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-            <input type="search" class="nav-search-input" placeholder="搜索老字号美食..." aria-label="搜索老字号美食" readonly tabindex="-1">
+            <input type="text" class="nav-search-input" placeholder="搜索老字号美食..." aria-label="搜索老字号美食（装饰展示）" autocomplete="off">
           </form>
-          <button type="button" class="nav-bgm-btn" id="navBgmBtn" aria-label="背景音乐控制" aria-pressed="false">
+          <button type="button" class="nav-bgm-btn d-none d-lg-inline-flex" id="navBgmBtn" aria-label="背景音乐控制" aria-pressed="false">
             <span class="nav-bgm-icon" aria-hidden="true">♫</span>
             <span class="nav-bgm-text">音乐</span>
           </button>
@@ -72,30 +124,52 @@
     </div>
   </nav>
 
+  <div class="home-nav-fade-bridge immerse-gradient-bridge" aria-hidden="true"></div>
+
   <main class="page-main" id="page-content">
 
     <!-- 轮播图 + 左右快捷入口 -->
     <section class="home-banner-zone" id="home-banner" aria-label="首页轮播与快捷入口">
-      <div class="container-fluid px-lg-4 py-3 py-lg-4">
+      <div class="container-fluid px-lg-4 py-4 py-lg-5">
         <div class="row g-3 g-lg-4 align-items-stretch home-banner-row">
-          <div class="col-lg-2 d-none d-lg-flex flex-column gap-3 home-quick-side">
-            <a href="north.html" class="home-quick-card home-quick-card--side home-quick-card--north">
-              <span class="home-quick-icon">北</span>
-              <strong>北方风味</strong>
-              <small>烤鸭 · 涮肉 · 包子</small>
-            </a>
-            <a href="south.html" class="home-quick-card home-quick-card--side home-quick-card--south">
-              <span class="home-quick-icon">南</span>
-              <strong>南方风味</strong>
-              <small>早茶 · 糕点 · 小笼</small>
-            </a>
-            <a href="jiangxi.html" class="home-quick-card home-quick-card--side home-quick-card--jiangxi">
-              <span class="home-quick-icon">赣</span>
-              <strong>赣味传承</strong>
-              <small>瓦罐汤 · 白糖糕</small>
-            </a>
+          <div class="col-lg-2 d-none d-lg-flex home-scroll-col home-scroll-col--left">
+            <aside class="home-scroll-sidebar home-scroll-sidebar--left immerse-reveal immerse-reveal--delay-1" aria-label="地域风味快捷入口">
+              <div class="home-scroll">
+                <div class="home-scroll-cap home-scroll-cap--top" aria-hidden="true"></div>
+                <div class="home-scroll-body">
+                  <p class="home-scroll-label">地域风味</p>
+                  <nav class="home-scroll-nav">
+                    <a href="north.html" class="home-scroll-item home-scroll-item--north">
+                      <span class="home-scroll-deco home-scroll-deco--chopsticks" aria-hidden="true"></span>
+                      <span class="home-scroll-char">北</span>
+                      <span class="home-scroll-text">
+                        <strong>北方风味</strong>
+                        <small>烤鸭 · 涮肉 · 包子</small>
+                      </span>
+                    </a>
+                    <a href="south.html" class="home-scroll-item home-scroll-item--south">
+                      <span class="home-scroll-deco home-scroll-deco--bowl" aria-hidden="true"></span>
+                      <span class="home-scroll-char">南</span>
+                      <span class="home-scroll-text">
+                        <strong>南方风味</strong>
+                        <small>早茶 · 糕点 · 小笼</small>
+                      </span>
+                    </a>
+                    <a href="jiangxi.html" class="home-scroll-item home-scroll-item--jiangxi">
+                      <span class="home-scroll-deco home-scroll-deco--pot" aria-hidden="true"></span>
+                      <span class="home-scroll-char">赣</span>
+                      <span class="home-scroll-text">
+                        <strong>赣味传承</strong>
+                        <small>瓦罐汤 · 白糖糕</small>
+                      </span>
+                    </a>
+                  </nav>
+                </div>
+                <div class="home-scroll-cap home-scroll-cap--bottom" aria-hidden="true"></div>
+              </div>
+            </aside>
           </div>
-          <div class="col-12 col-lg-8">
+          <div class="col-12 col-lg-8 home-banner-carousel-col immerse-reveal">
             <div class="hero-carousel h-100 mb-0">
               <div id="bannerCarousel" class="carousel slide carousel-fade h-100" data-bs-ride="carousel" data-bs-interval="4000">
                 <div class="carousel-indicators">
@@ -145,22 +219,42 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-2 d-none d-lg-flex flex-column gap-3 home-quick-side">
-            <a href="heritage.html" class="home-quick-card home-quick-card--side home-quick-card--heritage">
-              <span class="home-quick-icon">遗</span>
-              <strong>非遗工艺</strong>
-              <small>匠心 · 技艺传承</small>
-            </a>
-            <a href="contact.html" class="home-quick-card home-quick-card--side home-quick-card--contact">
-              <span class="home-quick-icon">互</span>
-              <strong>互动体验</strong>
-              <small>留言 · 课程心得</small>
-            </a>
-            <a href="#home-map" class="home-quick-card home-quick-card--side home-quick-card--map">
-              <span class="home-quick-icon">图</span>
-              <strong>美食地图</strong>
-              <small>纵览地域风味</small>
-            </a>
+          <div class="col-lg-2 d-none d-lg-flex home-scroll-col home-scroll-col--right">
+            <aside class="home-scroll-sidebar home-scroll-sidebar--right immerse-reveal immerse-reveal--delay-2" aria-label="特色功能快捷入口">
+              <div class="home-scroll">
+                <div class="home-scroll-cap home-scroll-cap--top" aria-hidden="true"></div>
+                <div class="home-scroll-body">
+                  <p class="home-scroll-label">特色功能</p>
+                  <nav class="home-scroll-nav">
+                    <a href="heritage.html" class="home-scroll-item home-scroll-item--heritage">
+                      <span class="home-scroll-deco home-scroll-deco--craft" aria-hidden="true"></span>
+                      <span class="home-scroll-char">遗</span>
+                      <span class="home-scroll-text">
+                        <strong>非遗工艺</strong>
+                        <small>匠心 · 技艺传承</small>
+                      </span>
+                    </a>
+                    <a href="contact.html" class="home-scroll-item home-scroll-item--contact">
+                      <span class="home-scroll-deco home-scroll-deco--cup" aria-hidden="true"></span>
+                      <span class="home-scroll-char">互</span>
+                      <span class="home-scroll-text">
+                        <strong>互动体验</strong>
+                        <small>留言 · 课程心得</small>
+                      </span>
+                    </a>
+                    <a href="#home-map" class="home-scroll-item home-scroll-item--map">
+                      <span class="home-scroll-deco home-scroll-deco--map" aria-hidden="true"></span>
+                      <span class="home-scroll-char">图</span>
+                      <span class="home-scroll-text">
+                        <strong>美食地图</strong>
+                        <small>纵览地域风味</small>
+                      </span>
+                    </a>
+                  </nav>
+                </div>
+                <div class="home-scroll-cap home-scroll-cap--bottom" aria-hidden="true"></div>
+              </div>
+            </aside>
           </div>
         </div>
         <!-- 移动端快捷入口 -->
@@ -196,39 +290,44 @@
       </div>
     </section>
 
+    <div class="home-intro-bridge" aria-hidden="true">
+      <div class="immerse-section-divider"></div>
+    </div>
+
     <!-- 中华老字号简介 -->
-    <section class="intro-section py-5" id="home-intro">
+    <section class="intro-section home-intro-section py-5" id="home-intro">
       <div class="container">
-        <div class="section-heading text-center mb-5">
+        <div class="section-heading text-center mb-5 immerse-reveal home-intro-heading">
           <span class="section-tag">品牌溯源</span>
+          <div class="immerse-title-ornament" aria-hidden="true"></div>
           <h2 class="section-title">中华老字号简介</h2>
           <div class="title-divider"></div>
         </div>
         <div class="row align-items-center g-4">
-          <div class="col-lg-5">
-            <div class="intro-card">
+          <div class="col-lg-5 immerse-reveal immerse-reveal--delay-1">
+            <div class="intro-card home-glass-card">
               <h3>什么是中华老字号？</h3>
               <p>「中华老字号」是指历史悠久，拥有世代传承的产品、技艺或服务，具有鲜明的中华民族传统文化背景和深厚的文化底蕴，取得社会广泛认同，形成良好信誉的品牌。</p>
             </div>
           </div>
           <div class="col-lg-7">
             <div class="row g-3">
-              <div class="col-md-4">
-                <article class="feature-box">
+              <div class="col-md-4 immerse-reveal immerse-reveal--delay-1">
+                <article class="feature-box home-glass-card">
                   <div class="feature-icon">史</div>
                   <h4>历史价值</h4>
                   <p>多数老字号创于明清乃至更早，见证了中国商业文明与市井生活的演变，是活态的历史档案。</p>
                 </article>
               </div>
-              <div class="col-md-4">
-                <article class="feature-box">
+              <div class="col-md-4 immerse-reveal immerse-reveal--delay-2">
+                <article class="feature-box home-glass-card">
                   <div class="feature-icon">艺</div>
                   <h4>技艺传承</h4>
                   <p>独特的配方与手工技艺代代相传，凝聚着匠人对食材、火候与细节的极致追求。</p>
                 </article>
               </div>
-              <div class="col-md-4">
-                <article class="feature-box">
+              <div class="col-md-4 immerse-reveal immerse-reveal--delay-3">
+                <article class="feature-box home-glass-card">
                   <div class="feature-icon">文</div>
                   <h4>文化意义</h4>
                   <p>老字号不仅是味觉符号，更承载着地域民俗、礼仪节庆与中国人对「吃」的哲学理解。</p>
@@ -383,8 +482,10 @@
       <p class="footer-year">2026</p>
     </div>
   </footer>
+  </div><!-- /.home-content-wrap -->
 
-  <audio id="siteBgm" class="site-bgm" loop preload="auto" aria-hidden="true">
+  <audio id="siteBgm" class="site-bgm" loop preload="auto" playsinline aria-hidden="true">
+    <source src="audio/bgm.mp3" type="audio/mpeg">
     <source src="audio/bgm.m4a" type="audio/mp4">
   </audio>
 
